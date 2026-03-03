@@ -1,6 +1,15 @@
 import express from 'express';
+import dns from 'dns';
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+dns.setDefaultResultOrder('ipv4first');
+
 import cors from 'cors';
 import path from 'path';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 import { fileURLToPath } from 'url';
 import { sequelize } from './models/index.js';
 import productRoutes from './routes/products.js';
@@ -18,6 +27,12 @@ import { defaultDeliveryOptions } from './defaultData/defaultDeliveryOptions.js'
 import { defaultCart } from './defaultData/defaultCart.js';
 import { defaultOrders } from './defaultData/defaultOrders.js';
 import fs from 'fs';
+
+
+//mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.error("Mongo Error:", err));
 
 const app = express();
 const PORT = process.env.PORT || 3000;
