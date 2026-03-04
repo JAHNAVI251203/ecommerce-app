@@ -4,7 +4,7 @@ export const defaultProducts = [
     "image": "images/products/athletic-cotton-socks-6-pairs.jpg",
     "name": "Black and Gray Athletic Cotton Socks - 6 Pairs",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 87
     },
     "priceCents": 1090,
@@ -15,7 +15,7 @@ export const defaultProducts = [
     "image": "images/products/intermediate-composite-basketball.jpg",
     "name": "Intermediate Size Basketball",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 127
     },
     "priceCents": 2095,
@@ -26,7 +26,7 @@ export const defaultProducts = [
     "image": "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
     "name": "Adults Plain Cotton T-Shirt - 2 Pack",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 56
     },
     "priceCents": 799,
@@ -37,7 +37,7 @@ export const defaultProducts = [
     "image": "images/products/2-slot-toaster-white.jpg",
     "name": "2 Slot Toaster - White",
     "rating": {
-      "stars": 5,
+      "rate": 5,
       "count": 2197
     },
     "priceCents": 1899,
@@ -48,7 +48,7 @@ export const defaultProducts = [
     "image": "images/products/elegant-white-dinner-plate-set.jpg",
     "name": "2 Piece White Dinner Plate Set",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 37
     },
     "priceCents": 2067,
@@ -59,7 +59,7 @@ export const defaultProducts = [
     "image": "images/products/3-piece-cooking-set.jpg",
     "name": "3 Piece Non-Stick, Black Cooking Pot Set",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 175
     },
     "priceCents": 3499,
@@ -70,7 +70,7 @@ export const defaultProducts = [
     "image": "images/products/women-plain-cotton-oversized-sweater-gray.jpg",
     "name": "Cotton Oversized Sweater - Gray",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 317
     },
     "priceCents": 2400,
@@ -81,7 +81,7 @@ export const defaultProducts = [
     "image": "images/products/luxury-towel-set.jpg",
     "name": "2 Piece Luxury Towel Set - White",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 144
     },
     "priceCents": 3599,
@@ -92,7 +92,7 @@ export const defaultProducts = [
     "image": "images/products/facial-tissue-2-ply-8-boxes.jpg",
     "name": "Ultra Soft Tissue 2-Ply - 8 Boxes",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 99
     },
     "priceCents": 2374,
@@ -103,7 +103,7 @@ export const defaultProducts = [
     "image": "images/products/women-striped-beach-dress.jpg",
     "name": "Women's Striped Beach Dress",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 235
     },
     "priceCents": 2970,
@@ -114,7 +114,7 @@ export const defaultProducts = [
     "image": "images/products/women-sandal-heels-white-pink.jpg",
     "name": "Women's Sandal Heels - Pink",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 2286
     },
     "priceCents": 5300,
@@ -125,7 +125,7 @@ export const defaultProducts = [
     "image": "images/products/round-sunglasses-gold.jpg",
     "name": "Round Sunglasses",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 30
     },
     "priceCents": 3560,
@@ -136,7 +136,7 @@ export const defaultProducts = [
     "image": "images/products/blackout-curtain-set-beige.jpg",
     "name": "Blackout Curtains Set - Beige",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 232
     },
     "priceCents": 4599,
@@ -147,7 +147,7 @@ export const defaultProducts = [
     "image": "images/products/women-summer-jean-shorts.jpg",
     "name": "Women's Summer Jean Shorts",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 160
     },
     "priceCents": 1699,
@@ -158,7 +158,7 @@ export const defaultProducts = [
     "image": "images/products/electric-steel-hot-water-kettle-white.jpg",
     "name": "Electric Hot Water Kettle - White",
     "rating": {
-      "stars": 5,
+      "rate": 5,
       "count": 846
     },
     "priceCents": 5074,
@@ -169,7 +169,7 @@ export const defaultProducts = [
     "image": "images/products/knit-athletic-sneakers-gray.jpg",
     "name": "Waterproof Knit Athletic Sneakers - Gray",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 89
     },
     "priceCents": 5390,
@@ -180,7 +180,7 @@ export const defaultProducts = [
     "image": "images/products/straw-sunhat.jpg",
     "name": "Straw Wide Brim Sun Hat",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 215
     },
     "priceCents": 2200,
@@ -191,7 +191,7 @@ export const defaultProducts = [
     "image": "images/products/men-athletic-shoes-white.jpg",
     "name": "Men's Athletic Sneaker - White",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 229
     },
     "priceCents": 4590,
@@ -202,7 +202,7 @@ export const defaultProducts = [
     "image": "images/products/men-stretch-wool-sweater-black.jpg",
     "name": "Men's Wool Sweater - Black",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 2465
     },
     "priceCents": 3374,
@@ -213,7 +213,7 @@ export const defaultProducts = [
     "image": "images/products/bathroom-mat.jpg",
     "name": "Bathroom Bath Mat 16 x 32 Inch - Grey",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 119
     },
     "priceCents": 1850,
@@ -224,7 +224,7 @@ export const defaultProducts = [
     "image": "images/products/women-knit-ballet-flat-white.jpg",
     "name": "Women's Ballet Flat - White",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 326
     },
     "priceCents": 2640,
@@ -235,7 +235,7 @@ export const defaultProducts = [
     "image": "images/products/men-golf-polo-t-shirt-gray.jpg",
     "name": "Men's Golf Polo Shirt - Gray",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 2556
     },
     "priceCents": 1599,
@@ -246,7 +246,7 @@ export const defaultProducts = [
     "image": "images/products/laundry-detergent-tabs.jpg",
     "name": "Laundry Detergent Tabs, 50 Loads",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 305
     },
     "priceCents": 2899,
@@ -257,7 +257,7 @@ export const defaultProducts = [
     "image": "images/products/sky-leaf-branch-earrings.jpg",
     "name": "Sterling Silver Leaf Branch Earrings",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 52
     },
     "priceCents": 6799,
@@ -268,7 +268,7 @@ export const defaultProducts = [
     "image": "images/products/duvet-cover-set-gray-queen.jpg",
     "name": "Duvet Cover Set, Diamond Pattern",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 456
     },
     "priceCents": 4399,
@@ -279,7 +279,7 @@ export const defaultProducts = [
     "image": "images/products/women-knit-beanie-pom-pom-blue.jpg",
     "name": "Women's Knit Winter Beanie - Blue",
     "rating": {
-      "stars": 5,
+      "rate": 5,
       "count": 83
     },
     "priceCents": 1950,
@@ -290,7 +290,7 @@ export const defaultProducts = [
     "image": "images/products/men-chino-pants-beige.jpg",
     "name": "Men's Chino Pants - Beige",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 9017
     },
     "priceCents": 2290,
@@ -301,7 +301,7 @@ export const defaultProducts = [
     "image": "images/products/men-navigator-sunglasses-black.jpg",
     "name": "Men's Navigator Sunglasses",
     "rating": {
-      "stars": 3.5,
+      "rate": 3.5,
       "count": 42
     },
     "priceCents": 3690,
@@ -312,7 +312,7 @@ export const defaultProducts = [
     "image": "images/products/men-brown-flat-sneakers.jpg",
     "name": "Men's Brown Flat Sneakers",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 562
     },
     "priceCents": 2499,
@@ -323,7 +323,7 @@ export const defaultProducts = [
     "image": "images/products/non-stick-cooking-set-4-pieces.jpg",
     "name": "Non-Stick Cook Set With Lids - 4 Pieces",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 511
     },
     "priceCents": 6797,
@@ -334,7 +334,7 @@ export const defaultProducts = [
     "image": "images/products/vanity-mirror-pink.jpg",
     "name": "Vanity Mirror with LED Lights - Pink",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 130
     },
     "priceCents": 2549,
@@ -345,7 +345,7 @@ export const defaultProducts = [
     "image": "images/products/women-relaxed-lounge-pants-pink.jpg",
     "name": "Women's Relaxed Lounge Pants - Pink",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 248
     },
     "priceCents": 3400,
@@ -356,7 +356,7 @@ export const defaultProducts = [
     "image": "images/products/crystal-zirconia-stud-earrings-pink.jpg",
     "name": "Crystal Zirconia Stud Earrings - Pink",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 117
     },
     "priceCents": 3467,
@@ -367,7 +367,7 @@ export const defaultProducts = [
     "image": "images/products/glass-screw-lid-food-containers.jpg",
     "name": "Glass Screw Lid Containers - 3 Pieces",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 126
     },
     "priceCents": 2899,
@@ -378,7 +378,7 @@ export const defaultProducts = [
     "image": "images/products/black-and-silver-espresso-maker.jpg",
     "name": "Black and Silver Espresso Maker",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 1211
     },
     "priceCents": 8250,
@@ -389,7 +389,7 @@ export const defaultProducts = [
     "image": "images/products/blackout-curtains-set-teal.jpg",
     "name": "Blackout Curtains Set 42 x 84-Inch - Teal",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 363
     },
     "priceCents": 3099,
@@ -400,7 +400,7 @@ export const defaultProducts = [
     "image": "images/products/bath-towel-set-gray-rosewood.jpg",
     "name": "Bath Towels 2 Pack - Gray, Rosewood",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 93
     },
     "priceCents": 2990,
@@ -411,7 +411,7 @@ export const defaultProducts = [
     "image": "images/products/athletic-skateboard-shoes-gray.jpg",
     "name": "Athletic Skateboard Shoes - Gray",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 89
     },
     "priceCents": 3390,
@@ -422,7 +422,7 @@ export const defaultProducts = [
     "image": "images/products/countertop-push-blender-black.jpg",
     "name": "Countertop Push Blender - Black",
     "rating": {
-      "stars": 4,
+      "rate": 4,
       "count": 3
     },
     "priceCents": 10747,
@@ -433,7 +433,7 @@ export const defaultProducts = [
     "image": "images/products/men-cozy-fleece-hoodie-light-teal.jpg",
     "name": "Men's Fleece Hoodie - Light Teal",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 3157
     },
     "priceCents": 3800,
@@ -444,7 +444,7 @@ export const defaultProducts = [
     "image": "images/products/artistic-bowl-set-6-piece.jpg",
     "name": "Artistic Bowl and Plate Set - 6 Pieces",
     "rating": {
-      "stars": 5,
+      "rate": 5,
       "count": 679
     },
     "priceCents": 3899,
@@ -455,7 +455,7 @@ export const defaultProducts = [
     "image": "images/products/kitchen-paper-towels-8-pack.jpg",
     "name": "2-Ply Kitchen Paper Towels - 8 Pack",
     "rating": {
-      "stars": 4.5,
+      "rate": 4.5,
       "count": 1045
     },
     "priceCents": 1899,

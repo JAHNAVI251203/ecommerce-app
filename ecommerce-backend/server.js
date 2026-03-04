@@ -1,120 +1,119 @@
-import express from 'express';
-import dns from 'dns';
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
-dns.setDefaultResultOrder('ipv4first');
+import express from "express";
+import cors from "cors";
+import path from "path";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import fs from "fs";
 
-import cors from 'cors';
-import path from 'path';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+// Routes
+import productRoutes from "./routes/products.js";
+import deliveryOptionRoutes from "./routes/deliveryOptions.js";
+import cartItemRoutes from "./routes/cartItems.js";
+import orderRoutes from "./routes/orders.js";
+import resetRoutes from "./routes/reset.js";
+import paymentSummaryRoutes from "./routes/paymentSummary.js";
+
+// Models
+import Product from "./models/Product.js";
+import DeliveryOption from "./models/DeliveryOption.js";
+import CartItem from "./models/CartItem.js";
+import Order from "./models/Order.js";
+
+// Default Data
+import { defaultProducts } from "./defaultData/defaultProducts.js";
+import { defaultDeliveryOptions } from "./defaultData/defaultDeliveryOptions.js";
+import { defaultCart } from "./defaultData/defaultCart.js";
+import { defaultOrders } from "./defaultData/defaultOrders.js";
 
 dotenv.config();
 
-import { fileURLToPath } from 'url';
-import { sequelize } from './models/index.js';
-import productRoutes from './routes/products.js';
-import deliveryOptionRoutes from './routes/deliveryOptions.js';
-import cartItemRoutes from './routes/cartItems.js';
-import orderRoutes from './routes/orders.js';
-import resetRoutes from './routes/reset.js';
-import paymentSummaryRoutes from './routes/paymentSummary.js';
-import { Product } from './models/Product.js';
-import { DeliveryOption } from './models/DeliveryOption.js';
-import { CartItem } from './models/CartItem.js';
-import { Order } from './models/Order.js';
-import { defaultProducts } from './defaultData/defaultProducts.js';
-import { defaultDeliveryOptions } from './defaultData/defaultDeliveryOptions.js';
-import { defaultCart } from './defaultData/defaultCart.js';
-import { defaultOrders } from './defaultData/defaultOrders.js';
-import fs from 'fs';
+// MongoDB Connection
+await mongoose.connect(process.env.MONGO_URI);
+console.log("MongoDB Connected");
 
-
-//mongoose.connect(process.env.MONGO_URI)
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error("Mongo Error:", err));
-
+// Express Setup
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Serve images from the images folder
-app.use('/images', express.static(path.join(__dirname, 'images')));
+// Serve images
+app.use("/images", express.static(path.join(__dirname, "images")));
 
-// Use routes
-app.use('/api/products', productRoutes);
-app.use('/api/delivery-options', deliveryOptionRoutes);
-app.use('/api/cart-items', cartItemRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/reset', resetRoutes);
-app.use('/api/payment-summary', paymentSummaryRoutes);
+// API Routes
+app.use("/api/products", productRoutes);
+app.use("/api/delivery-options", deliveryOptionRoutes);
+app.use("/api/cart-items", cartItemRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/reset", resetRoutes);
+app.use("/api/payment-summary", paymentSummaryRoutes);
 
-// Serve static files from the dist folder
-app.use(express.static(path.join(__dirname, 'dist')));
+// Seed Database (Relational Style)
+const seedDatabase = async () => {
+  const productCount = await Product.countDocuments();
+  if (productCount > 0) return;
 
-// Catch-all route to serve index.html for any unmatched routes
-app.get('*', (req, res) => {
-  const indexPath = path.join(__dirname, 'dist', 'index.html');
+  console.log("Seeding database...");
+
+  // Insert Products
+  const createdProducts = await Product.insertMany(defaultProducts);
+
+  // Insert Delivery Options
+  const createdDeliveryOptions = await DeliveryOption.insertMany(defaultDeliveryOptions);
+
+  // Create Cart Items with Product references
+  const cartItems = defaultCart.map((item, index) => ({
+    product: createdProducts[index % createdProducts.length]._id,
+    quantity: item.quantity || 1
+  }));
+
+  await CartItem.insertMany(cartItems);
+
+  // Create Orders with proper references
+  const orders = defaultOrders.map((order, index) => ({
+    items: [
+      {
+        product: createdProducts[index % createdProducts.length]._id,
+        quantity: 1
+      }
+    ],
+    deliveryOption: createdDeliveryOptions[0]._id,
+    totalAmountCents:
+      createdProducts[index % createdProducts.length].priceCents,
+    status: "pending"
+  }));
+
+  await Order.insertMany(orders);
+
+  console.log("Database seeded successfully with relationships.");
+};
+
+await seedDatabase();
+
+// Serve Frontend (Production Build)
+app.use(express.static(path.join(__dirname, "dist")));
+
+app.get("*", (req, res) => {
+  const indexPath = path.join(__dirname, "dist", "index.html");
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
-    res.status(404).send('index.html not found');
+    res.status(404).send("index.html not found");
   }
 });
 
-// Error handling middleware
-/* eslint-disable no-unused-vars */
+// Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  res.status(500).json({ error: "Something went wrong!" });
 });
-/* eslint-enable no-unused-vars */
 
-// Sync database and load default data if none exist
-await sequelize.sync();
-
-const productCount = await Product.count();
-if (productCount === 0) {
-  const timestamp = Date.now();
-
-  const productsWithTimestamps = defaultProducts.map((product, index) => ({
-    ...product,
-    createdAt: new Date(timestamp + index),
-    updatedAt: new Date(timestamp + index)
-  }));
-
-  const deliveryOptionsWithTimestamps = defaultDeliveryOptions.map((option, index) => ({
-    ...option,
-    createdAt: new Date(timestamp + index),
-    updatedAt: new Date(timestamp + index)
-  }));
-
-  const cartItemsWithTimestamps = defaultCart.map((item, index) => ({
-    ...item,
-    createdAt: new Date(timestamp + index),
-    updatedAt: new Date(timestamp + index)
-  }));
-
-  const ordersWithTimestamps = defaultOrders.map((order, index) => ({
-    ...order,
-    createdAt: new Date(timestamp + index),
-    updatedAt: new Date(timestamp + index)
-  }));
-
-  await Product.bulkCreate(productsWithTimestamps);
-  await DeliveryOption.bulkCreate(deliveryOptionsWithTimestamps);
-  await CartItem.bulkCreate(cartItemsWithTimestamps);
-  await Order.bulkCreate(ordersWithTimestamps);
-
-  console.log('Default data added to the database.');
-}
-
-// Start server
+// Start Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

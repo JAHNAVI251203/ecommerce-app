@@ -1,31 +1,37 @@
 import express from 'express';
-import { Product } from '../models/Product.js';
+import Product from '../models/Product.js';
 
 const router = express.Router();
 
+/*
+  GET /api/products
+  Optional: ?search=shoes or ?search=kitchen or ....
+*/
 router.get('/', async (req, res) => {
-  const search = req.query.search;
+  try {
+    const search = req.query.search;
 
-  let products;
-  if (search) {
-    products = await Product.findAll();
+    let products;
 
-    // Filter products by case-insensitive search on name or keywords
-    const lowerCaseSearch = search.toLowerCase();
+    if (search) {
+      const searchRegex = new RegExp(search, 'i'); //case insensitive
 
-    products = products.filter(product => {
-      const nameMatch = product.name.toLowerCase().includes(lowerCaseSearch);
+      products = await Product.find({
+        $or: [
+          { name: searchRegex },
+          { keywords: searchRegex }
+        ]
+      });
 
-      const keywordsMatch = product.keywords.some(keyword => keyword.toLowerCase().includes(lowerCaseSearch));
+    } else {
+      products = await Product.find();
+    }
 
-      return nameMatch || keywordsMatch;
-    });
+    res.json(products);
 
-  } else {
-    products = await Product.findAll();
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  res.json(products);
 });
 
 export default router;

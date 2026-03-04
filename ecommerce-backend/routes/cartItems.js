@@ -1,88 +1,126 @@
 import express from 'express';
-import { CartItem } from '../models/CartItem.js';
-import { Product } from '../models/Product.js';
-import { DeliveryOption } from '../models/DeliveryOption.js';
+import CartItem from '../models/CartItem.js';
+import Product from '../models/Product.js';
+import DeliveryOption from '../models/DeliveryOption.js';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const expand = req.query.expand;
-  let cartItems = await CartItem.findAll();
+  try {
+    const expand = req.query.expand;
 
-  if (expand === 'product') {
-    cartItems = await Promise.all(cartItems.map(async (item) => {
-      const product = await Product.findByPk(item.productId);
-      return {
-        ...item.toJSON(),
-        product
-      };
-    }));
+    let cartItems = await CartItem.find();
+
+    if (expand === 'product') {
+      cartItems = await Promise.all(
+        cartItems.map(async (item) => {
+          const product = await Product.findById(item.productId);
+          return {
+            ...item.toObject(),
+            product
+          };
+        })
+      );
+    }
+
+    res.json(cartItems);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  res.json(cartItems);
 });
 
 router.post('/', async (req, res) => {
-  const { productId, quantity } = req.body;
+  try {
+    const { productId, quantity } = req.body;
 
-  const product = await Product.findByPk(productId);
-  if (!product) {
-    return res.status(400).json({ error: 'Product not found' });
+    // Validate product exists
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(400).json({ error: 'Product not found' });
+    }
+
+    // Validate quantity
+    if (typeof quantity !== 'number' || quantity < 1 || quantity > 10) {
+      return res.status(400).json({ error: 'Quantity must be between 1 and 10' });
+    }
+
+    // Check if cart item already exists
+    let cartItem = await CartItem.findOne({ productId });
+
+    if (cartItem) {
+      cartItem.quantity += quantity;
+      await cartItem.save();
+    } else {
+      cartItem = await CartItem.create({
+        productId,
+        quantity,
+        deliveryOptionId: "1" // default delivery option
+      });
+    }
+
+    res.status(201).json(cartItem);
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  if (typeof quantity !== 'number' || quantity < 1 || quantity > 10) {
-    return res.status(400).json({ error: 'Quantity must be a number between 1 and 10' });
-  }
-
-  let cartItem = await CartItem.findOne({ where: { productId } });
-  if (cartItem) {
-    cartItem.quantity += quantity;
-    await cartItem.save();
-  } else {
-    cartItem = await CartItem.create({ productId, quantity, deliveryOptionId: "1" });
-  }
-
-  res.status(201).json(cartItem);
 });
 
 router.put('/:productId', async (req, res) => {
-  const { productId } = req.params;
-  const { quantity, deliveryOptionId } = req.body;
+  try {
+    const { productId } = req.params;
+    const { quantity, deliveryOptionId } = req.body;
 
-  const cartItem = await CartItem.findOne({ where: { productId } });
-  if (!cartItem) {
-    return res.status(404).json({ error: 'Cart item not found' });
-  }
+    const cartItem = await CartItem.findOne({ productId });
 
-  if (quantity !== undefined) {
-    if (typeof quantity !== 'number' || quantity < 1) {
-      return res.status(400).json({ error: 'Quantity must be a number greater than 0' });
+    if (!cartItem) {
+      return res.status(404).json({ error: 'Cart item not found' });
     }
-    cartItem.quantity = quantity;
-  }
 
-  if (deliveryOptionId !== undefined) {
-    const deliveryOption = await DeliveryOption.findByPk(deliveryOptionId);
-    if (!deliveryOption) {
-      return res.status(400).json({ error: 'Invalid delivery option' });
+    // Update quantity
+    if (quantity !== undefined) {
+      if (typeof quantity !== 'number' || quantity < 1) {
+        return res.status(400).json({ error: 'Quantity must be greater than 0' });
+      }
+      cartItem.quantity = quantity;
     }
-    cartItem.deliveryOptionId = deliveryOptionId;
-  }
 
-  await cartItem.save();
-  res.json(cartItem);
+    // Update delivery option
+    if (deliveryOptionId !== undefined) {
+      const deliveryOption = await DeliveryOption.findOne({ id: deliveryOptionId });
+
+      if (!deliveryOption) {
+        return res.status(400).json({ error: 'Invalid delivery option' });
+      }
+
+      cartItem.deliveryOptionId = deliveryOptionId;
+    }
+
+    await cartItem.save();
+
+    res.json(cartItem);
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 router.delete('/:productId', async (req, res) => {
-  const { productId } = req.params;
+  try {
+    const { productId } = req.params;
 
-  const cartItem = await CartItem.findOne({ where: { productId } });
-  if (!cartItem) {
-    return res.status(404).json({ error: 'Cart item not found' });
+    const cartItem = await CartItem.findOne({ productId });
+
+    if (!cartItem) {
+      return res.status(404).json({ error: 'Cart item not found' });
+    }
+
+    await CartItem.deleteOne({ productId });
+
+    res.status(204).send();
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  await cartItem.destroy();
-  res.status(204).send();
 });
 
 export default router;
