@@ -2,7 +2,7 @@ import express from "express";
 
 import Product from "../models/Product.js";
 import DeliveryOption from "../models/DeliveryOption.js";
-import CartItem from "../models/CartItem.js";
+import Cart from "../models/Cart.js";
 import Order from "../models/Order.js";
 
 import { defaultProducts } from "../defaultData/defaultProducts.js";

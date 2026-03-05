@@ -3,21 +3,24 @@ import cors from "cors";
 import path from "path";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import connectDB from './config/db.js';
 import { fileURLToPath } from "url";
 import fs from "fs";
 
 // Routes
-import productRoutes from "./routes/products.js";
-import deliveryOptionRoutes from "./routes/deliveryOptions.js";
-import cartItemRoutes from "./routes/cartItems.js";
-import orderRoutes from "./routes/orders.js";
+import productRoutes from "./routes/productsRoutes.js";
+import deliveryOptionRoutes from "./routes/deliveryOptionsRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
+import orderRoutes from "./routes/ordersRoutes.js";
 import resetRoutes from "./routes/reset.js";
-import paymentSummaryRoutes from "./routes/paymentSummary.js";
+import paymentSummaryRoutes from "./routes/paymentSummaryRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 // Models
 import Product from "./models/Product.js";
 import DeliveryOption from "./models/DeliveryOption.js";
-import CartItem from "./models/CartItem.js";
+import Cart from "./models/Cart.js";
+import CartItem from "./models/Cart.js";
 import Order from "./models/Order.js";
 
 // Default Data
@@ -27,10 +30,8 @@ import { defaultCart } from "./defaultData/defaultCart.js";
 import { defaultOrders } from "./defaultData/defaultOrders.js";
 
 dotenv.config();
-
 // MongoDB Connection
-await mongoose.connect(process.env.MONGO_URI);
-console.log("MongoDB Connected");
+connectDB();
 
 // Express Setup
 const app = express();
@@ -48,10 +49,11 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 // API Routes
 app.use("/api/products", productRoutes);
 app.use("/api/delivery-options", deliveryOptionRoutes);
-app.use("/api/cart-items", cartItemRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/reset", resetRoutes);
 app.use("/api/payment-summary", paymentSummaryRoutes);
+app.use("/api/users", userRoutes);
 
 // Seed Database (Relational Style)
 const seedDatabase = async () => {

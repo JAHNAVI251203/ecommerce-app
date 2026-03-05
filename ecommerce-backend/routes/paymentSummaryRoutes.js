@@ -1,5 +1,5 @@
 import express from 'express';
-import CartItem from '../models/CartItem.js';
+import Cart from '../models/Cart.js';
 import Product from '../models/Product.js';
 import DeliveryOption from '../models/DeliveryOption.js';
 
