@@ -1,0 +1,73 @@
+.register-page {
+  max-width: 420px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  margin-top: 140px;
+  margin-bottom: 100px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.register-page .register-card {
+  border: 1px solid rgb(222, 222, 222);
+  border-radius: 4px;
+  padding: 24px;
+}
+
+.register-page .page-title {
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.register-page .form-group {
+  margin-bottom: 16px;
+}
+
+.register-page .form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 4px;
+}
+
+.register-page .register-button {
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  border: none;
+  border-radius: 5px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  background-color: rgb(25, 135, 84);
+  color: white;
+
+  cursor: pointer;
+}
+
+.register-page .register-button:hover {
+  background-color: rgb(20, 110, 70);
+}
+
+.register-page .auth-link {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.register-page .auth-link a {
+  color: rgb(0, 113, 133);
+  text-decoration: none;
+}
+
+.register-page .auth-link a:hover {
+  text-decoration: underline;
+}

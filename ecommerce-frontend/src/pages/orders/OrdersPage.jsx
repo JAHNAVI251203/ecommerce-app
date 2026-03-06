@@ -1,4 +1,4 @@
-import axios from 'axios';
+import API from "../../api/axios";
 import dayjs from 'dayjs';
 import { useState, useEffect, Fragment } from 'react';
 import { formatMoney } from '../../utils/money';

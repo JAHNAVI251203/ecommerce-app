@@ -97,10 +97,11 @@
 }
 
 .header .right-section {
-  width: 180px;
+  min-width: 240px;
   flex-shrink: 0;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end; 
+  align-items: center;
 }
 
 .header .orders-link {

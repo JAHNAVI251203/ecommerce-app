@@ -1,16 +1,21 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { formatMoney } from '../../utils/money';
+import API from "../../api/axios";
+import { useState } from "react";
+import { formatMoney } from "../../utils/money";
 
 export function Product({ product, loadCart }) {
   const [quantity, setQuantity] = useState(1);
 
   const addToCart = async () => {
-    await axios.post('/api/cart-items', {
-      productId: product.id,
-      quantity
-    });
-    await loadCart();
+    try {
+      await API.post("/cart-items", {
+        productId: product._id,
+        quantity: quantity
+      });
+
+      await loadCart();
+    } catch (error) {
+      console.error("Failed to add to cart:", error);
+    }
   };
 
   const selectQuantity = (event) => {
@@ -21,9 +26,12 @@ export function Product({ product, loadCart }) {
   return (
     <div className="product-container" data-testid="product-container">
       <div className="product-image-container">
-        <img className="product-image"
+        <img
+          className="product-image"
           data-testid="product-image"
-          src={product.image} />
+          src={product.image}
+          alt={product.name}
+        />
       </div>
 
       <div className="product-name limit-text-to-2-lines">
@@ -31,16 +39,20 @@ export function Product({ product, loadCart }) {
       </div>
 
       <div className="product-rating-container">
-        <img className="product-rating-stars"
+        <img
+          className="product-rating-stars"
           data-testid="product-rating-stars-image"
-          src={`images/ratings/rating-${product.rating.stars * 10}.png`} />
+          src={`images/ratings/rating-${(product.rating?.stars || 0) * 10}.png`}
+          alt="rating"
+        />
+
         <div className="product-rating-count link-primary">
-          {product.rating.count}
+          {product.rating?.count || 0}
         </div>
       </div>
 
       <div className="product-price">
-        {formatMoney(product.priceCents)}
+        {formatMoney(product.priceCents / 100)}
       </div>
 
       <div className="product-quantity-container">
@@ -61,14 +73,15 @@ export function Product({ product, loadCart }) {
       <div className="product-spacer"></div>
 
       <div className="added-to-cart">
-        <img src="images/icons/checkmark.png" />
+        <img src="images/icons/checkmark.png" alt="added" />
         Added
       </div>
 
-      <button 
-      className="add-to-cart-button button-primary" 
-      data-testid="add-to-cart-button"
-      onClick={addToCart}>
+      <button
+        className="add-to-cart-button button-primary"
+        data-testid="add-to-cart-button"
+        onClick={addToCart}
+      >
         Add to Cart
       </button>
     </div>

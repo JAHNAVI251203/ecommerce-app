@@ -2,7 +2,7 @@ import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen, within } from '@testing-library/react';//renders React components in a fake web page for testing
 import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
+import API from "../../api/axios";
 import { HomePage } from './HomePage';
 
 vi.mock('axios');

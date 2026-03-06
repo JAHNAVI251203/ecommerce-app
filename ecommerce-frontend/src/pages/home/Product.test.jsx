@@ -1,7 +1,7 @@
 import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';//renders React components in a fake web page for testing
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
+import API from "../../api/axios";
 import { Product } from './Product';
 
 vi.mock('axios');
