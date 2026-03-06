@@ -3,7 +3,6 @@ import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
 
 export const createOrder = async (req, res) => {
-   router.post("/", protect, async (req, res) => {
   try {
 
     const cart = await Cart.findOne({ user: req.user._id })
@@ -64,11 +63,9 @@ export const createOrder = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
 }
 
 export const getOrders = async (req, res) => {
-   router.get("/", protect, async (req, res) => {
   try {
 
     const orders = await Order.find({ user: req.user._id })
@@ -80,11 +77,9 @@ export const getOrders = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
 }
 
 export const getOrderById = async (req, res) => {
-   router.get("/:id", protect, async (req, res) => {
   try {
 
     const order = await Order.findById(req.params.id)
@@ -103,11 +98,9 @@ export const getOrderById = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
 }
 
 export const updateOrderStatus = async (req, res) => {
-   router.put("/:id/status", protect, async (req, res) => {
   try {
 
     const order = await Order.findById(req.params.id);
@@ -146,11 +139,9 @@ export const updateOrderStatus = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
 }
 
 export const cancelOrder = async (req, res) => {
-   router.put("/:id/cancel", protect, async (req, res) => {
   try {
 
     const order = await Order.findById(req.params.id);
@@ -181,5 +172,4 @@ export const cancelOrder = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
 }
