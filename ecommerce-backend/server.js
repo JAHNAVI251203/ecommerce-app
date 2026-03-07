@@ -16,6 +16,7 @@ import resetRoutes from "./routes/reset.js";
 import paymentSummaryRoutes from "./routes/paymentSummaryRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 
 // Models
 import Product from "./models/Product.js";
@@ -56,6 +57,7 @@ app.use("/api/reset", resetRoutes);
 app.use("/api/payment-summary", paymentSummaryRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminOrderRoutes);
 
 // Seed Database (Relational Style)
 const seedDatabase = async () => {
