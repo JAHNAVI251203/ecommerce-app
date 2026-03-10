@@ -7,7 +7,7 @@ export function Product({ product, loadCart }) {
 
   const addToCart = async () => {
     try {
-      await API.post("/cart-items", {
+      await API.post("/cart", {
         productId: product._id,
         quantity: quantity
       });
@@ -80,7 +80,7 @@ export function Product({ product, loadCart }) {
       <button
         className="add-to-cart-button button-primary"
         data-testid="add-to-cart-button"
-        onClick={addToCart}
+        onClick={() => addToCart(product._id, quantity)}
       >
         Add to Cart
       </button>

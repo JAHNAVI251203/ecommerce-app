@@ -1,53 +1,97 @@
 import API from "../../api/axios";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { OrderSummary } from './OrderSummary';
-import { PaymentSummary } from './PaymentSummary';
-import './checkout-header.css';
-import './CheckoutPage.css';
+import { OrderSummary } from "./OrderSummary";
+import { PaymentSummary } from "./PaymentSummary";
+import "./checkout-header.css";
+import "./CheckoutPage.css";
 
-export function CheckoutPage({ cart, loadCart }) {
+export function CheckoutPage({ loadCart }) {
 
-  const [deliveryOptions, setDeliveryOptions] = useState([]);
-  const [paymentSummary, setPaymentSummary] = useState(null);
+  const [cart, setCart] = useState(null);
+  const [deliverySelection, setDeliverySelection] = useState({});
 
   const navigate = useNavigate();
 
+  // Fetch cart once when page loads
   useEffect(() => {
-    //check if user is logged in
+
     const token = localStorage.getItem("token");
+
     if (!token) {
       navigate("/login");
       return;
     }
 
-    const fetchCheckoutData = async () => {
+    const fetchCart = async () => {
       try {
-        //fetch delivery options
-        let response = await API.get(
-          '/delivery-options'
-        );
-        setDeliveryOptions(response.data);
-        //fetch payment summary
-        response = await API.get(
-          '/payment-summary',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
-
-        setPaymentSummary(response.data);
-
+        const res = await API.get("/cart");
+        setCart(res.data);
       } catch (error) {
-        console.error("Checkout error:", error);
+        console.error("Failed to load cart:", error);
       }
     };
 
-    fetchCheckoutData();
+    fetchCart();
 
-  }, [cart, navigate]);
+  }, [navigate]);
+
+
+
+  // Set default delivery options AFTER cart loads
+  useEffect(() => {
+
+    if (!cart || !cart.items) return;
+
+    const defaults = {};
+
+    cart.items.forEach(item => {
+      defaults[item.product._id] = "free";
+    });
+
+    setDeliverySelection(defaults);
+
+  }, [cart]);
+
+
+  if (!cart) {
+    return <div>Loading checkout...</div>;
+  }
+
+
+  // ------------------------------------------------
+  // Checkout Calculations (ALL IN PAISE)
+  // ------------------------------------------------
+
+  let itemsPrice = 0;
+  let shippingPrice = 0;
+  let totalItems = 0;
+
+  cart.items.forEach((item) => {
+
+    const price = item.product?.price || 0;
+    const qty = item.quantity || 0;
+
+    itemsPrice += price * qty;
+    totalItems += qty;
+
+    const selectedDelivery = deliverySelection[item.product._id] || "free";
+
+    if (selectedDelivery === "standard") shippingPrice += 500;
+    if (selectedDelivery === "express") shippingPrice += 1000;
+
+  });
+
+  const totalPrice = itemsPrice + shippingPrice;
+
+  const paymentSummary = {
+    totalItems,
+    itemsPrice,
+    shippingPrice,
+    totalPrice
+  };
+
+
 
   return (
     <>
@@ -64,8 +108,11 @@ export function CheckoutPage({ cart, loadCart }) {
           </div>
 
           <div className="checkout-header-middle-section">
-            Checkout (<a className="return-to-home-link"
-              href="/">{cart?.length || 0} items</a>)
+            Checkout (
+            <a className="return-to-home-link" href="/">
+              {totalItems} items
+            </a>
+            )
           </div>
 
           <div className="checkout-header-right-section">
@@ -74,6 +121,7 @@ export function CheckoutPage({ cart, loadCart }) {
 
         </div>
       </div>
+
 
       <div className="checkout-page">
 
@@ -85,7 +133,8 @@ export function CheckoutPage({ cart, loadCart }) {
 
           <OrderSummary
             cart={cart}
-            deliveryOptions={deliveryOptions}
+            deliverySelection={deliverySelection}
+            setDeliverySelection={setDeliverySelection}
             loadCart={loadCart}
           />
 

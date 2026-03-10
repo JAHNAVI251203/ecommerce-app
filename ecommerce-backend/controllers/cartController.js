@@ -3,7 +3,7 @@ import Cart from "../models/Cart.js";
 export const getCart = async (req, res) => {
   try {
 
-    let cart = await Cart.findOne({ user: req.user._id }).populate("items.product");
+    let cart = await Cart.findOne({ user: req.user._id }).populate("items.product", "name price image");
 
     if (!cart) {
       cart = new Cart({
@@ -70,3 +70,4 @@ export const removeItem = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 }
+

@@ -44,9 +44,11 @@ export const updateOrderStatusAdmin = async (req, res) => {
     const { status } = req.body;
 
     const validStatuses = [
-      "created",
-      "processing",
+      "placed",
+      "confirmed",
+      "packed",
       "shipped",
+      "out_for_delivery",
       "delivered"
     ];
 

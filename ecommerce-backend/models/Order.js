@@ -38,8 +38,8 @@ const orderSchema = new mongoose.Schema(
     },
     orderStatus: {
       type: String,
-      enum: ["created", "processing", "shipped", "delivered", "cancelled"],
-      default: "created"
+      enum: ["placed", "confirmed", "packed", "shipped", "out_for_delivery", "delivered"],
+      default: "placed"
     },
     totalPrice: {
       type: Number,

@@ -7,7 +7,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 87
     },
-    "priceCents": 1090,
+    "price": 1090,
     "keywords": ["socks", "sports", "apparel"]
   },
   {
@@ -18,7 +18,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 127
     },
-    "priceCents": 2095,
+    "price": 2095,
     "keywords": ["sports", "basketballs"]
   },
   {
@@ -29,7 +29,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 56
     },
-    "priceCents": 799,
+    "price": 799,
     "keywords": ["tshirts", "apparel", "mens"]
   },
   {
@@ -40,7 +40,7 @@ export const defaultProducts = [
       "rate": 5,
       "count": 2197
     },
-    "priceCents": 1899,
+    "price": 1899,
     "keywords": ["toaster", "kitchen", "appliances"]
   },
   {
@@ -51,7 +51,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 37
     },
-    "priceCents": 2067,
+    "price": 2067,
     "keywords": ["plates", "kitchen", "dining"]
   },
   {
@@ -62,7 +62,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 175
     },
-    "priceCents": 3499,
+    "price": 3499,
     "keywords": ["kitchen", "cookware"]
   },
   {
@@ -73,7 +73,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 317
     },
-    "priceCents": 2400,
+    "price": 2400,
     "keywords": ["sweaters", "apparel"]
   },
   {
@@ -84,7 +84,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 144
     },
-    "priceCents": 3599,
+    "price": 3599,
     "keywords": ["bathroom", "washroom", "restroom", "towels", "bath towels"]
   },
   {
@@ -95,7 +95,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 99
     },
-    "priceCents": 2374,
+    "price": 2374,
     "keywords": ["kleenex", "tissues", "kitchen", "napkins"]
   },
   {
@@ -106,7 +106,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 235
     },
-    "priceCents": 2970,
+    "price": 2970,
     "keywords": ["robe", "swimsuit", "swimming", "bathing", "apparel"]
   },
   {
@@ -117,7 +117,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 2286
     },
-    "priceCents": 5300,
+    "price": 5300,
     "keywords": ["womens", "shoes", "heels", "sandals"]
   },
   {
@@ -128,7 +128,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 30
     },
-    "priceCents": 3560,
+    "price": 3560,
     "keywords": ["accessories", "shades"]
   },
   {
@@ -139,7 +139,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 232
     },
-    "priceCents": 4599,
+    "price": 4599,
     "keywords": ["bedroom", "curtains", "home"]
   },
   {
@@ -150,7 +150,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 160
     },
-    "priceCents": 1699,
+    "price": 1699,
     "keywords": ["shorts", "apparel", "womens"]
   },
   {
@@ -161,7 +161,7 @@ export const defaultProducts = [
       "rate": 5,
       "count": 846
     },
-    "priceCents": 5074,
+    "price": 5074,
     "keywords": ["water kettle", "appliances", "kitchen"]
   },
   {
@@ -172,7 +172,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 89
     },
-    "priceCents": 5390,
+    "price": 5390,
     "keywords": ["shoes", "running shoes", "footwear"]
   },
   {
@@ -183,7 +183,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 215
     },
-    "priceCents": 2200,
+    "price": 2200,
     "keywords": ["hats", "straw hats", "summer", "apparel"]
   },
   {
@@ -194,7 +194,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 229
     },
-    "priceCents": 4590,
+    "price": 4590,
     "keywords": ["shoes", "running shoes", "footwear", "mens"]
   },
   {
@@ -205,7 +205,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 2465
     },
-    "priceCents": 3374,
+    "price": 3374,
     "keywords": ["sweaters", "apparel"]
   },
   {
@@ -216,7 +216,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 119
     },
-    "priceCents": 1850,
+    "price": 1850,
     "keywords": ["bathmat", "bathroom", "home"]
   },
   {
@@ -227,7 +227,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 326
     },
-    "priceCents": 2640,
+    "price": 2640,
     "keywords": ["shoes", "flats", "womens", "footwear"]
   },
   {
@@ -238,7 +238,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 2556
     },
-    "priceCents": 1599,
+    "price": 1599,
     "keywords": ["tshirts", "shirts", "apparel", "mens"]
   },
   {
@@ -249,7 +249,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 305
     },
-    "priceCents": 2899,
+    "price": 2899,
     "keywords": ["bathroom", "cleaning"]
   },
   {
@@ -260,7 +260,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 52
     },
-    "priceCents": 6799,
+    "price": 6799,
     "keywords": ["jewelry", "accessories", "womens"]
   },
   {
@@ -271,7 +271,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 456
     },
-    "priceCents": 4399,
+    "price": 4399,
     "keywords": ["bedroom", "bed sheets", "sheets", "covers", "home"]
   },
   {
@@ -282,7 +282,7 @@ export const defaultProducts = [
       "rate": 5,
       "count": 83
     },
-    "priceCents": 1950,
+    "price": 1950,
     "keywords": ["hats", "winter hats", "beanies", "apparel", "womens"]
   },
   {
@@ -293,7 +293,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 9017
     },
-    "priceCents": 2290,
+    "price": 2290,
     "keywords": ["pants", "apparel", "mens"]
   },
   {
@@ -304,7 +304,7 @@ export const defaultProducts = [
       "rate": 3.5,
       "count": 42
     },
-    "priceCents": 3690,
+    "price": 3690,
     "keywords": ["sunglasses", "glasses", "accessories", "shades"]
   },
   {
@@ -315,7 +315,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 562
     },
-    "priceCents": 2499,
+    "price": 2499,
     "keywords": ["footwear", "men", "sneakers"]
   },
   {
@@ -326,7 +326,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 511
     },
-    "priceCents": 6797,
+    "price": 6797,
     "keywords": ["cooking set", "kitchen"]
   },
   {
@@ -337,7 +337,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 130
     },
-    "priceCents": 2549,
+    "price": 2549,
     "keywords": ["bathroom", "washroom", "mirrors", "home"]
   },
   {
@@ -348,7 +348,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 248
     },
-    "priceCents": 3400,
+    "price": 3400,
     "keywords": ["pants", "apparel", "womens"]
   },
   {
@@ -359,7 +359,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 117
     },
-    "priceCents": 3467,
+    "price": 3467,
     "keywords": ["accessories", "womens"]
   },
   {
@@ -370,7 +370,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 126
     },
-    "priceCents": 2899,
+    "price": 2899,
     "keywords": ["food containers", "kitchen"]
   },
   {
@@ -381,7 +381,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 1211
     },
-    "priceCents": 8250,
+    "price": 8250,
     "keywords": ["espresso makers", "kitchen", "appliances"]
   },
   {
@@ -392,7 +392,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 363
     },
-    "priceCents": 3099,
+    "price": 3099,
     "keywords": ["bedroom", "home", "curtains"]
   },
   {
@@ -403,7 +403,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 93
     },
-    "priceCents": 2990,
+    "price": 2990,
     "keywords": ["bathroom", "home", "towels"]
   },
   {
@@ -414,7 +414,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 89
     },
-    "priceCents": 3390,
+    "price": 3390,
     "keywords": ["shoes", "running shoes", "footwear"]
   },
   {
@@ -425,7 +425,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 3
     },
-    "priceCents": 10747,
+    "price": 10747,
     "keywords": ["food blenders", "kitchen", "appliances"]
   },
   {
@@ -436,7 +436,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 3157
     },
-    "priceCents": 3800,
+    "price": 3800,
     "keywords": ["sweaters", "hoodies", "apparel", "mens"]
   },
   {
@@ -447,7 +447,7 @@ export const defaultProducts = [
       "rate": 5,
       "count": 679
     },
-    "priceCents": 3899,
+    "price": 3899,
     "keywords": ["bowls set", "kitchen"]
   },
   {
@@ -458,7 +458,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 1045
     },
-    "priceCents": 1899,
+    "price": 1899,
     "keywords": ["kitchen", "kitchen towels", "tissues"]
   }
 ];
