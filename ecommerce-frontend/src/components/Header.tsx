@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./header.css";
 
 type CartItem = {
@@ -12,8 +13,8 @@ type HeaderProps = {
 };
 
 export function Header({ cart = [] }: HeaderProps) {
-
   const navigate = useNavigate();
+  const location = useLocation();
 
   const token = localStorage.getItem("token");
 
@@ -37,9 +38,38 @@ export function Header({ cart = [] }: HeaderProps) {
     ? cart.reduce((sum, item) => sum + item.quantity, 0)
     : 0;
 
+  // ✅ SEARCH STATE
+  const queryParams = new URLSearchParams(location.search);
+  const initialSearch = queryParams.get("search") || "";
+
+  const [search, setSearch] = useState(initialSearch);
+  const [debouncedSearch, setDebouncedSearch] = useState(initialSearch);
+
+  // ✅ DEBOUNCE LOGIC
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  // ✅ NAVIGATE WHEN SEARCH CHANGES
+  useEffect(() => {
+    const currentParams = new URLSearchParams(location.search);
+    const currentSearch = currentParams.get("search") || "";
+
+    if (debouncedSearch !== currentSearch) {
+      if (debouncedSearch.trim()) {
+        navigate(`/?search=${debouncedSearch}`);
+      } else {
+        navigate(`/`);
+      }
+    }
+  }, [debouncedSearch, navigate, location.search]);
+
   return (
     <div className="header">
-
       <div className="left-section">
         <Link to="/" className="header-link">
           <img className="logo" src="/images/logo-white.png" />
@@ -51,6 +81,8 @@ export function Header({ cart = [] }: HeaderProps) {
           className="search-bar"
           type="text"
           placeholder="Search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
 
         <button className="search-button">
@@ -62,12 +94,10 @@ export function Header({ cart = [] }: HeaderProps) {
       </div>
 
       <div className="right-section">
-
         <Link className="orders-link header-link" to="/orders">
           <span className="orders-text">Orders</span>
         </Link>
 
-        {/* ADMIN DASHBOARD LINK */}
         {isAdmin && (
           <Link className="admin-link header-link" to="/admin/dashboard">
             <span className="orders-text">Dashboard</span>
@@ -94,17 +124,11 @@ export function Header({ cart = [] }: HeaderProps) {
             src="/images/icons/cart-icon.png"
           />
 
-          <div className="cart-quantity">
-            {totalQuantity}
-          </div>
+          <div className="cart-quantity">{totalQuantity}</div>
 
-          <div className="cart-text">
-            Cart
-          </div>
+          <div className="cart-text">Cart</div>
         </Link>
-
       </div>
-
     </div>
   );
 }

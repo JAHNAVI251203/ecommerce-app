@@ -61,7 +61,7 @@ export default function AdminDashboard() {
         {sales.map((item) => (
           <div key={item._id} className="sales-row">
 
-            <span>Month {item._id}</span>
+            <span>Month: {item._id}</span>
             <span>Orders: {item.totalOrders}</span>
             <span>Revenue: ₹{item.totalSales}</span>
 

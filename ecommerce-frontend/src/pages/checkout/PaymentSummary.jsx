@@ -46,14 +46,21 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
               shippingAddress: paymentSummary.shippingAddress
             });
 
+            console.log("SENDING TO BACKEND:", {
+              shippingPrice,
+              itemsPrice,
+              orderItems,
+              shippingAddress
+            });
+
             const verifyRes = await API.post("/payments/verify", {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
-              shippingPrice: paymentSummary.shippingPrice,
-              orderItems: paymentSummary.orderItems,
-              shippingAddress: paymentSummary.shippingAddress,
-              itemsPrice: paymentSummary.itemsPrice
+              shippingPrice,
+              orderItems,
+              shippingAddress: { ...shippingAddress },
+              itemsPrice
             });
 
             // backend already created order

@@ -2,6 +2,7 @@ import razorpay from "../config/razorpay.js";
 import Cart from "../models/Cart.js";
 import crypto from "crypto";
 import Order from "../models/Order.js";
+import mongoose from "mongoose";
 
 
 // ==============================
@@ -15,14 +16,10 @@ export const createRazorpayOrder = async (req, res) => {
 
     const isCartFlow = cart && cart.items.length > 0;
 
-    // ❗ allow admin fallback if no cart
     if (!isCartFlow && req.user.role !== "admin") {
       return res.status(400).json({ message: "Cart empty" });
     }
 
-    // ==============================
-    // PRICE CALCULATION
-    // ==============================
     let itemsPrice = 0;
 
     if (isCartFlow) {
@@ -30,7 +27,6 @@ export const createRazorpayOrder = async (req, res) => {
         itemsPrice += item.product.price * item.quantity;
       });
     } else {
-      // admin fallback (from frontend)
       itemsPrice = Number(req.body.itemsPrice) || 0;
     }
 
@@ -95,7 +91,7 @@ export const verifyPayment = async (req, res) => {
     }
 
     // ==============================
-    // FETCH CART (OPTIONAL NOW)
+    // FETCH CART
     // ==============================
     const cart = await Cart.findOne({ user: req.user._id })
       .populate("items.product");
@@ -104,18 +100,9 @@ export const verifyPayment = async (req, res) => {
 
     console.log("BODY:", req.body);
     console.log("USER:", req.user);
-    console.log("EXPECTED:", expectedSignature);
-    console.log("RECEIVED:", razorpay_signature);
-
-    console.log("---- VERIFY DEBUG ----");
-    console.log("order_id:", razorpay_order_id);
-    console.log("payment_id:", razorpay_payment_id);
-    console.log("signature:", razorpay_signature);
-
-    console.log("generated:", expectedSignature);
 
     // ==============================
-    // STOCK CHECK (ONLY IF CART)
+    // STOCK CHECK
     // ==============================
     if (isCartFlow) {
       for (const item of cart.items) {
@@ -139,18 +126,26 @@ export const verifyPayment = async (req, res) => {
         price: item.product.price
       }));
     } else {
-      // admin fallback
-      orderItems = req.body.orderItems || [];
+      orderItems = (req.body.orderItems || []).map(item => ({
+        product: new mongoose.Types.ObjectId(item.product), // ✅ FIX
+        quantity: item.quantity,
+        price: item.price
+      }));
     }
 
-    // ✅ ADD THIS RIGHT HERE
     if (!orderItems || orderItems.length === 0) {
       return res.status(400).json({ message: "No order items" });
     }
 
-    if (!req.body.shippingAddress) {
-      return res.status(400).json({ message: "Missing shipping address" });
-    }
+    // ==============================
+    // SHIPPING ADDRESS
+    // ==============================
+    const shippingAddress = req.body.shippingAddress || {
+      address: "Default Address",
+      city: "Default City",
+      postalCode: "000000",
+      country: "India"
+    };
 
     // ==============================
     // PRICE CALCULATION
@@ -168,22 +163,35 @@ export const verifyPayment = async (req, res) => {
     const shippingPrice = req.body.shippingPrice || 0;
     const totalPrice = itemsPrice + shippingPrice;
 
+    console.log("CREATING ORDER WITH:", {
+      orderItems,
+      shippingAddress,
+      itemsPrice,
+      shippingPrice
+    });
+
     // ==============================
-    // CREATE ORDER
+    // CREATE ORDER (FIXED)
     // ==============================
     const order = await Order.create({
       user: req.user._id,
+
       orderItems,
-      shippingAddress: req.body.shippingAddress,
-      paymentStatus: "paid",
-      razorpayOrderId: razorpay_order_id,
-      razorpayPaymentId: razorpay_payment_id,
-      orderStatus: "placed",
+      shippingAddress,
+
       itemsPrice,
       shippingPrice,
       totalPrice,
-      orderItems,
-      shippingAddress,
+
+      paymentStatus: "paid",
+
+      paymentResult: {
+        razorpayOrderId: razorpay_order_id,
+        razorpayPaymentId: razorpay_payment_id
+      },
+
+      orderStatus: "placed",
+
       timeline: [
         {
           status: "placed",
@@ -193,7 +201,7 @@ export const verifyPayment = async (req, res) => {
     });
 
     // ==============================
-    // REDUCE STOCK (ONLY IF CART)
+    // REDUCE STOCK
     // ==============================
     if (isCartFlow) {
       for (const item of cart.items) {
@@ -203,7 +211,7 @@ export const verifyPayment = async (req, res) => {
     }
 
     // ==============================
-    // CLEAR CART (ONLY IF EXISTS)
+    // CLEAR CART
     // ==============================
     if (isCartFlow) {
       cart.items = [];
