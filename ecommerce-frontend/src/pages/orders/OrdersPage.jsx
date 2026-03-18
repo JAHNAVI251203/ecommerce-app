@@ -11,7 +11,7 @@ export function OrdersPage({ cart }) {
 
   useEffect(() => {
     const getOrdersData = async () => {
-      const response = await axios.get('/api/orders?expand=products');
+      const response = await API.get('/orders');
       setOrders(response.data);
     };
 
@@ -30,52 +30,48 @@ export function OrdersPage({ cart }) {
         <div className="orders-grid">
           {orders.map((order) => {
             return (
-              <div key={order.id} className="order-container">
+              <div key={order._id} className="order-container">
 
                 <div className="order-header">
                   <div className="order-header-left-section">
                     <div className="order-date">
                       <div className="order-header-label">Order Placed:</div>
-                      <div>{dayjs(order.orderTimeMs).format('MMMM D')}</div>
+                      <div>{dayjs(order.createdAt).format('MMMM D')}</div>
                     </div>
                     <div className="order-total">
                       <div className="order-header-label">Total:</div>
-                      <div>{formatMoney(order.totalCostCents)}</div>
+                      <div>₹{order.totalPrice.toLocaleString()}</div>
                     </div>
                   </div>
 
                   <div className="order-header-right-section">
                     <div className="order-header-label">Order ID:</div>
-                    <div>{order.id}</div>
+                    <div>{order._id}</div>
+                    <div>Status: {order.orderStatus}</div>
                   </div>
                 </div>
 
                 <div className="order-details-grid">
-                  {order.products.map((orderProduct) => {
+                  {order.orderItems.map((item) => {
+                    if (!item.product) return null;
                     return (
-                      <Fragment key={orderProduct.product.id}>
+                      <Fragment key={item.product._id}>
                         <div className="product-image-container">
-                          <img src={orderProduct.product.image} />
+                          <img src={item.product?.image} />
                         </div>
 
                         <div className="product-details">
                           <div className="product-name">
-                            {orderProduct.product.name}
+                            {item.product?.name}
                           </div>
-                          <div className="product-delivery-date">
-                            Arriving on: {dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D')}
-                          </div>
+
                           <div className="product-quantity">
-                            Quantity: {orderProduct.quantity}
+                            Quantity: {item.quantity}
                           </div>
-                          <button className="buy-again-button button-primary">
-                            <img className="buy-again-icon" src="images/icons/buy-again.png" />
-                            <span className="buy-again-message">Add to Cart</span>
-                          </button>
                         </div>
 
                         <div className="product-actions">
-                          <a href="/tracking">
+                          <a href={`/tracking/${order._id}`}>
                             <button className="track-package-button button-secondary">
                               Track package
                             </button>

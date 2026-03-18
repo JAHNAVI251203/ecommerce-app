@@ -5,8 +5,8 @@ export function DeliveryOptions({ cartItem, deliverySelection, setDeliverySelect
 
   const options = [
     { id: "free", price: 0, days: 5 },
-    { id: "standard", price: 500, days: 3 },   // ₹5
-    { id: "express", price: 1000, days: 1 }    // ₹10
+    { id: "standard", price: 5, days: 3 },   // ₹5
+    { id: "express", price: 10, days: 1 }    // ₹10
   ];
 
   const selected =

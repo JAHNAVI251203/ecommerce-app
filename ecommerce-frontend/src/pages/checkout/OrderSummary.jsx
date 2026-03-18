@@ -69,7 +69,7 @@ export function OrderSummary({
                 </div>
 
                 <div className="product-price">
-                  {formatMoney(product?.price ?? 0)}
+                  ₹{product.price.toLocaleString()}
                 </div>
 
                 <div className="product-quantity">
@@ -96,7 +96,7 @@ export function OrderSummary({
                   <span
                     className="delete-quantity-link link-primary"
                     onClick={() =>
-                      deleteCartItem(product._id)
+                      deleteCartItem(cartItem.product._id)
                     }
                   >
                     Delete

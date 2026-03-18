@@ -1,32 +1,46 @@
 import Product from '../models/Product.js';
 
 export const getProducts = async (req, res) => {
-   /*
-  GET /api/products
-  Optional: ?search=shoes or ?search=kitchen or ....
-*/
-  try {
-    const search = req.query.search;
 
-    let products;
+  /*
+    GET /api/products
+    Optional:
+    ?search=shoes
+    ?page=2
+  */
+
+  try {
+
+    const search = req.query.search;
+    const page = Number(req.query.page) || 1;
+
+    // Build search filter
+    let filter = {};
 
     if (search) {
-      const searchRegex = new RegExp(search, 'i'); //case insensitive
+      const searchRegex = new RegExp(search, 'i'); // case insensitive
 
-      products = await Product.find({
+      filter = {
         $or: [
           { name: searchRegex },
           { keywords: searchRegex }
         ]
-      });
-
-    } else {
-      products = await Product.find();
+      };
     }
 
-    res.json(products);
+    // Count total products matching filter
+    const count = await Product.countDocuments(filter);
+
+    // Fetch products 
+    const products = await Product.find(filter);
+
+    res.json({
+      products,
+      totalProducts: count
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+
+};

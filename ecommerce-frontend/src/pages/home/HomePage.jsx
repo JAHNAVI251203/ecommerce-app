@@ -11,8 +11,7 @@ export function HomePage({ cart, loadCart }) {
     const getHomeData = async () => {
       try {
         const response = await API.get('/products');
-        console.log("PRODUCTS:", response.data);
-        setProducts(response.data);
+        setProducts(response.data.products);
       } catch (error) {
         console.error("Failed to load products:", error);
       }

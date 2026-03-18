@@ -193,7 +193,7 @@ export const cancelOrder = async (req, res) => {
 export const getTrackingStatus = async (req, res) => {
   try {
 
-    const order = await Order.findById(req.params.id);
+    const order = await Order.findById(req.params.id).populate("orderItems.product");
 
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
@@ -203,11 +203,7 @@ export const getTrackingStatus = async (req, res) => {
       return res.status(403).json({ message: "Not authorized" });
     }
 
-    res.json({
-      orderId: order._id,
-      currentStatus: order.orderStatus,
-      timeline: order.timeline
-    });
+    res.json(order);
 
   } catch (error) {
     res.status(500).json({ error: error.message });

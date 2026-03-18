@@ -14,7 +14,9 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
     totalItems,
     itemsPrice,
     shippingPrice,
-    totalPrice
+    totalPrice,
+    orderItems,
+    shippingAddress
   } = paymentSummary;
 
   const handlePlaceOrder = async () => {
@@ -22,46 +24,46 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
     try {
 
       // 1️⃣ create razorpay order (backend calculates amount)
-      const { data } = await API.post("/payments/create-order");
+      const { data } = await API.post("/payments/create-order", {
+        shippingPrice: paymentSummary.shippingPrice,
+        itemsPrice: paymentSummary.itemsPrice,
+        orderItems: paymentSummary.orderItems
+      });
 
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-
         amount: data.amount,
         currency: data.currency,
         order_id: data.orderId,
-
         name: "Your Store",
         description: "Order Payment",
-
         handler: async function (response) {
 
           try {
 
-            // 2️⃣ verify payment
-            await API.post("/payments/verify", {
+            console.log("VERIFY PAYLOAD:", {
+              orderItems: paymentSummary.orderItems,
+              shippingAddress: paymentSummary.shippingAddress
+            });
+
+            const verifyRes = await API.post("/payments/verify", {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature
+              razorpay_signature: response.razorpay_signature,
+              shippingPrice: paymentSummary.shippingPrice,
+              orderItems: paymentSummary.orderItems,
+              shippingAddress: paymentSummary.shippingAddress,
+              itemsPrice: paymentSummary.itemsPrice
             });
 
-            // 3️⃣ create order in DB
-            const shippingAddress = {
-              address: "Default Address",
-              city: "Default City",
-              postalCode: "000000",
-              country: "India"
-            };
+            // backend already created order
+            const order = verifyRes.data.order;
 
-            const orderRes = await API.post("/orders", {
-              shippingAddress
-            });
-
-            // 4️⃣ clear cart
+            // clear cart
             await loadCart();
 
-            // 5️⃣ redirect to tracking page
-            navigate(`/tracking/${orderRes.data._id}`);
+            // redirect
+            navigate(`/tracking/${order._id}`);
 
           } catch (error) {
 
@@ -81,10 +83,8 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
       razorpay.open();
 
     } catch (error) {
-
       console.error("Payment initiation failed:", error);
       alert("Unable to start payment");
-
     }
 
   };

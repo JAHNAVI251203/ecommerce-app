@@ -35,7 +35,7 @@ export const createCart = async (req, res) => {
     );
 
     if (existingItem) {
-      existingItem.quantity += quantity;
+      existingItem.quantity = quantity;
     } else {
       cart.items.push({
         product: productId,

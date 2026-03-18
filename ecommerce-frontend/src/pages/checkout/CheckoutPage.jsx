@@ -13,7 +13,21 @@ export function CheckoutPage({ loadCart }) {
 
   const navigate = useNavigate();
 
-  // Fetch cart once when page loads
+
+  // -------------------------------
+  // Fetch cart
+  // -------------------------------
+  const refreshCart = async () => {
+    try {
+      const res = await API.get("/cart");
+      setCart(res.data);
+    } catch (error) {
+      console.error("Failed to load cart:", error);
+    }
+  };
+
+
+  // Fetch cart when page loads
   useEffect(() => {
 
     const token = localStorage.getItem("token");
@@ -23,22 +37,14 @@ export function CheckoutPage({ loadCart }) {
       return;
     }
 
-    const fetchCart = async () => {
-      try {
-        const res = await API.get("/cart");
-        setCart(res.data);
-      } catch (error) {
-        console.error("Failed to load cart:", error);
-      }
-    };
-
-    fetchCart();
+    refreshCart();
 
   }, [navigate]);
 
 
-
-  // Set default delivery options AFTER cart loads
+  // -------------------------------
+  // Default delivery options
+  // -------------------------------
   useEffect(() => {
 
     if (!cart || !cart.items) return;
@@ -60,7 +66,7 @@ export function CheckoutPage({ loadCart }) {
 
 
   // ------------------------------------------------
-  // Checkout Calculations (ALL IN PAISE)
+  // Checkout Calculations
   // ------------------------------------------------
 
   let itemsPrice = 0;
@@ -77,8 +83,8 @@ export function CheckoutPage({ loadCart }) {
 
     const selectedDelivery = deliverySelection[item.product._id] || "free";
 
-    if (selectedDelivery === "standard") shippingPrice += 500;
-    if (selectedDelivery === "express") shippingPrice += 1000;
+    if (selectedDelivery === "standard") shippingPrice += 5;
+    if (selectedDelivery === "express") shippingPrice += 10;
 
   });
 
@@ -88,9 +94,20 @@ export function CheckoutPage({ loadCart }) {
     totalItems,
     itemsPrice,
     shippingPrice,
-    totalPrice
-  };
+    totalPrice,
+    orderItems: cart.items.map(item => ({
+      product: item.product._id,
+      quantity: item.quantity,
+      price: item.product.price
+    })),
+    shippingAddress: {
+      address: "Test Address",
+      city: "Bangalore",
+      postalCode: "560001",
+      country: "India"
+    }
 
+  };
 
 
   return (
@@ -115,10 +132,6 @@ export function CheckoutPage({ loadCart }) {
             )
           </div>
 
-          <div className="checkout-header-right-section">
-            <img src="/images/icons/checkout-lock-icon.png" />
-          </div>
-
         </div>
       </div>
 
@@ -135,12 +148,12 @@ export function CheckoutPage({ loadCart }) {
             cart={cart}
             deliverySelection={deliverySelection}
             setDeliverySelection={setDeliverySelection}
-            loadCart={loadCart}
+            loadCart={refreshCart}
           />
 
           <PaymentSummary
             paymentSummary={paymentSummary}
-            loadCart={loadCart}
+            loadCart={refreshCart}
           />
 
         </div>

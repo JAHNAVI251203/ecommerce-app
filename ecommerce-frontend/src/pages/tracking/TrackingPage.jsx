@@ -36,19 +36,7 @@ export function TrackingPage({ cart }) {
     return <div>Loading order...</div>;
   }
 
-  const currentStageIndex = statusStage.indexOf(order.currentStatus);
-
-  const status = order.status;
-  const item = order.orderItems[0];
-
-  /*const getProgressWidth = () => {
-    if (status === "created") return "20%";
-    if (status === "processing") return "40%";
-    if (status === "shipped") return "70%";
-    if (status === "delivered") return "100%";
-    if (status === "cancelled") return "100%";
-    return "10%";
-  };*/
+  const currentStageIndex = statusStage.indexOf(order.orderStatus);
 
   const getProgressWidth = () => {
     return ((currentStageIndex + 1) / statusStage.length) * 100 + "%";
@@ -56,7 +44,7 @@ export function TrackingPage({ cart }) {
 
   const getTimestamp = (status) => {
     const event = order.timeline.find((e) => e.status === status);
-    return event ? new Date(event.timestamp).toLocaleString() : null;
+    return event ? new Date(event.date).toLocaleString() : null;
   };
 
   return (
@@ -76,52 +64,49 @@ export function TrackingPage({ cart }) {
             Arriving on {new Date(order.createdAt).toDateString()}
           </div>
 
-          <div className="product-info">
-            {item.product.name}
-          </div>
+          {order.orderItems.map((item) => (
+            <div key={item._id} className="tracking-product">
 
-          <div className="product-info">
-            Quantity: {item.quantity}
-          </div>
+              <div className="product-info">
+                {item.product?.name}
+              </div>
 
-          <img
-            className="product-image"
-            src={item.product.image}
-          />
+              <div className="product-info">
+                Quantity: {item.quantity}
+              </div>
 
-          {/*<div className="progress-labels-container">
-            <div className={`progress-label ${status === "created" ? "current-status" : ""}`}>
-              Created
+              <img
+                className="product-image"
+                src={item.product?.image}
+                alt={item.product?.name}
+              />
+
             </div>
-            <div className={`progress-label ${status === "processing" ? "current-status" : ""}`}>
-              Preparing
-            </div>
-            <div className={`progress-label ${status === "shipped" ? "current-status" : ""}`}>
-              Shipped
-            </div>
-            <div className={`progress-label ${status === "delivered" ? "current-status" : ""}`}>
-              Delivered
-            </div>
-            <div className={`progress-label ${status === "cancelled" ? "current-status" : ""}`}>
-              Cancelled
-            </div>
-          </div>*/}
+          ))}
 
           <div className="progress-labels-container">
             {statusStage.map((step, index) => {
+
               const isCompleted = index < currentStageIndex;
               const isCurrent = index === currentStageIndex;
+
               const time = getTimestamp(step);
 
               return (
                 <div key={step} className="progress-label">
+
                   <div
                     className={`step-status ${isCompleted ? "completed" : ""} ${isCurrent ? "current-status" : ""}`}
                   >
                     {step.replaceAll("_", " ")}
                   </div>
 
-                  {time && <div className="step-time">{time}</div>}
+                  {time && (
+                    <div className="step-time">
+                      {time}
+                    </div>
+                  )}
+
                 </div>
               );
             })}

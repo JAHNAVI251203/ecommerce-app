@@ -12,6 +12,6 @@ router.get("/", protect, getCart);
 
 router.post("/", protect, createCart);
 
-router.delete("/:ProductId", protect, removeItem);
+router.delete("/:productId", protect, removeItem);
 
 export default router;

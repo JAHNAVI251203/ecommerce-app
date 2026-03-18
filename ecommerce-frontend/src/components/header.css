@@ -1,5 +1,5 @@
 .header {
-  background-color: rgb(8, 79, 45);
+  background-color: rgb(25, 135, 84);
   color: white;
   padding-left: 15px;
   padding-right: 15px;
@@ -43,19 +43,10 @@
   margin-top: 1px;
 }
 
-.header .mobile-logo {
-  display: none;
-}
 
 @media (max-width: 675px) {
   .header .logo {
     display: none;
-  }
-
-  .header .mobile-logo {
-    display: block;
-    height: 26px;
-    margin-top: 1px;
   }
 }
 
@@ -100,7 +91,7 @@
   min-width: 240px;
   flex-shrink: 0;
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -147,4 +138,14 @@
 
   width: 26px;
   text-align: center;
+}
+
+.header .admin-link {
+  /*margin-right: 20px;*/
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding-left: 13px;
 }

@@ -1,8 +1,10 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import cors from "cors";
 import path from "path";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import connectDB from './config/db.js';
 import { fileURLToPath } from "url";
 import fs from "fs";
@@ -13,11 +15,12 @@ import deliveryOptionRoutes from "./routes/deliveryOptionsRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/ordersRoutes.js";
 import resetRoutes from "./routes/reset.js";
-import paymentSummaryRoutes from "./routes/paymentSummaryRoutes.js";
+//import paymentSummaryRoutes from "./routes/paymentSummaryRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 // Models
 import Product from "./models/Product.js";
@@ -32,7 +35,7 @@ import { defaultDeliveryOptions } from "./defaultData/defaultDeliveryOptions.js"
 import { defaultCart } from "./defaultData/defaultCart.js";
 import { defaultOrders } from "./defaultData/defaultOrders.js";
 
-dotenv.config();
+
 // MongoDB Connection
 connectDB();
 
@@ -55,11 +58,12 @@ app.use("/api/delivery-options", deliveryOptionRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/reset", resetRoutes);
-app.use("/api/payment-summary", paymentSummaryRoutes);
+//app.use("/api/payment-summary", paymentSummaryRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminOrderRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Seed Database (Relational Style)
 const seedDatabase = async () => {

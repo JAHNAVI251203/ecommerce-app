@@ -8,6 +8,7 @@ import { TrackingPage } from "./pages/tracking/TrackingPage";
 import "./App.css";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -45,7 +46,7 @@ function App() {
 
       <Route
         path="checkout"
-        element={<CheckoutPage cart={cart} loadCart={loadCart} />}
+        element={<CheckoutPage loadCart={loadCart} />}
       />
 
       <Route
@@ -66,6 +67,11 @@ function App() {
       <Route
         path="/register"
         element={<RegisterPage />}
+      />
+
+      <Route
+        path="/admin/dashboard"
+        element={<AdminDashboard />}
       />
     </Routes>
   );
