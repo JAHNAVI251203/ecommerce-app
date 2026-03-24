@@ -6,7 +6,6 @@ import API from "../../api/axios";
 import { Link } from "react-router-dom";
 
 export function TrackingPage({ cart }) {
-
   const statusStage = [
     "placed",
     "confirmed",
@@ -28,7 +27,6 @@ export function TrackingPage({ cart }) {
         console.error(err);
       }
     };
-
     fetchOrder();
   }, [orderId]);
 

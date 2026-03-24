@@ -4,8 +4,6 @@
   padding: 40px;
 }
 
-/* Dashboard title */
-
 .dashboard-title {
   margin-bottom: 35px;
   color: rgb(25, 135, 84);
@@ -13,16 +11,12 @@
   font-weight: 700;
 }
 
-/* Stats cards container */
-
 .stats-grid {
   display: flex;
   gap: 28px;
   margin-bottom: 50px;
   flex-wrap: wrap;
 }
-
-/* Individual stat card */
 
 .stat-card {
   background: white;
@@ -46,14 +40,10 @@
   font-weight: 700;
 }
 
-/* Hover effect */
-
 .stat-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
 }
-
-/* Monthly sales title */
 
 .sales-title {
   margin-bottom: 20px;
@@ -66,15 +56,11 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-/* Sales list */
-
 .sales-list {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-
-/* Individual month row */
 
 .sales-row {
   display: flex;

@@ -3,10 +3,8 @@
   padding-left: 30px;
   padding-right: 30px;
   background-color: white;
-
   display: flex;
   justify-content: center;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +15,6 @@
 .checkout-header .header-content {
   width: 100%;
   max-width: 1100px;
-
   display: flex;
   align-items: center;
 }
@@ -35,19 +32,17 @@
   display: none;
 }
 
-/* @media is used to create responsive design (making the
-   website look good on any screen size). This @media
+/* @media is used to create responsive design(making the
+   website flexible,ei,make it look good on any screen size).This @media
    means when the screen width is 575px or less, different
    styles (inside the {...}) will be applied. */
 @media (max-width: 575px) {
   .checkout-header .checkout-header-left-section {
     width: auto;
   }
-
   .checkout-header .logo {
     display: none;
   }
-
   .checkout-header .mobile-logo {
     display: inline-block;
     height: 26px;
@@ -58,17 +53,14 @@
   flex: 1;
   flex-shrink: 0;
   text-align: center;
-
   font-size: 22px;
   font-weight: 500;
-
   display: flex;
   justify-content: center;
 }
 
 .checkout-header .return-to-home-link {
   color: rgb(25, 135, 84);
-
   text-decoration: none;
   cursor: pointer;
 }
@@ -78,7 +70,6 @@
     font-size: 20px;
     margin-right: 60px;
   }
-
   .checkout-header .return-to-home-link {
     font-size: 20px;
   }

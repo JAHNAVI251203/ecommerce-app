@@ -3,7 +3,6 @@ import API from "../../api/axios";
 import { formatMoney } from "../../utils/money";
 
 export function PaymentSummary({ paymentSummary, loadCart }) {
-
   const navigate = useNavigate();
 
   if (!paymentSummary) {
@@ -22,8 +21,6 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
   const handlePlaceOrder = async () => {
 
     try {
-
-      // 1️⃣ create razorpay order (backend calculates amount)
       const { data } = await API.post("/payments/create-order", {
         shippingPrice: paymentSummary.shippingPrice,
         itemsPrice: paymentSummary.itemsPrice,
@@ -40,7 +37,6 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
         handler: async function (response) {
 
           try {
-
             console.log("VERIFY PAYLOAD:", {
               orderItems: paymentSummary.orderItems,
               shippingAddress: paymentSummary.shippingAddress
@@ -63,24 +59,18 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
               itemsPrice
             });
 
-            // backend already created order
-            const order = verifyRes.data.order;
+            const order = verifyRes.data.order;//backend already created order
 
-            // clear cart
             await loadCart();
 
-            // redirect
             navigate(`/tracking/${order._id}`);
-
           } catch (error) {
 
             console.error("Payment verification failed", error);
             alert("Payment verification failed");
 
           }
-
         },
-
         theme: {
           color: "#000000"
         }
@@ -93,7 +83,6 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
       console.error("Payment initiation failed:", error);
       alert("Unable to start payment");
     }
-
   };
 
   return (

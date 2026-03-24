@@ -4,26 +4,21 @@ import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
 function LoginPage() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const navigate = useNavigate();
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
+  const handleLogin = async (e) => {e.preventDefault();
     try {
-
       const res = await API.post(
         "/auth/login",
         { email, password }
       );
 
-      // store JWT
+      //store JWT
       localStorage.setItem("token", res.data.token);
 
-      // redirect to home
+      //redirect to home
       navigate("/");
 
     } catch (err) {

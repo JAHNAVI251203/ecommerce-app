@@ -18,7 +18,6 @@ export function Header({ cart = [] }: HeaderProps) {
 
   const token = localStorage.getItem("token");
 
-  // simple admin detection
   let isAdmin = false;
   if (token) {
     try {
@@ -38,14 +37,14 @@ export function Header({ cart = [] }: HeaderProps) {
     ? cart.reduce((sum, item) => sum + item.quantity, 0)
     : 0;
 
-  // ✅ SEARCH STATE
+  //search state management
   const queryParams = new URLSearchParams(location.search);
   const initialSearch = queryParams.get("search") || "";
 
   const [search, setSearch] = useState(initialSearch);
   const [debouncedSearch, setDebouncedSearch] = useState(initialSearch);
 
-  // ✅ DEBOUNCE LOGIC
+  //debounce search input
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
@@ -54,7 +53,7 @@ export function Header({ cart = [] }: HeaderProps) {
     return () => clearTimeout(timer);
   }, [search]);
 
-  // ✅ NAVIGATE WHEN SEARCH CHANGES
+  //navigate to search results when debounced search changes
   useEffect(() => {
     const currentParams = new URLSearchParams(location.search);
     const currentSearch = currentParams.get("search") || "";

@@ -8,10 +8,8 @@ import {
 
 const router = express.Router();
 
-// GET /api/admin/dashboard
 router.get("/dashboard", protect, admin, getDashboardStats);
 
-// GET /api/admin/sales
 router.get("/sales", protect, admin, getMonthlySales);
 
 export default router;

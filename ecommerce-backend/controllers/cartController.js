@@ -2,7 +2,6 @@ import Cart from "../models/Cart.js";
 
 export const getCart = async (req, res) => {
   try {
-
     let cart = await Cart.findOne({ user: req.user._id }).populate("items.product", "name price image");
 
     if (!cart) {
@@ -14,7 +13,6 @@ export const getCart = async (req, res) => {
     }
 
     res.json(cart);
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

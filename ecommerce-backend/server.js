@@ -9,37 +9,27 @@ import connectDB from './config/db.js';
 import { fileURLToPath } from "url";
 import fs from "fs";
 
-// Routes
-import productRoutes from "./routes/productsRoutes.js";
-import deliveryOptionRoutes from "./routes/deliveryOptionsRoutes.js";
+//routes
+import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
-import orderRoutes from "./routes/ordersRoutes.js";
-import resetRoutes from "./routes/reset.js";
-//import paymentSummaryRoutes from "./routes/paymentSummaryRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
-// Models
+//models
 import Product from "./models/Product.js";
 import DeliveryOption from "./models/DeliveryOption.js";
 import Cart from "./models/Cart.js";
 import CartItem from "./models/Cart.js";
 import Order from "./models/Order.js";
 
-// Default Data
-import { defaultProducts } from "./defaultData/defaultProducts.js";
-import { defaultDeliveryOptions } from "./defaultData/defaultDeliveryOptions.js";
-import { defaultCart } from "./defaultData/defaultCart.js";
-import { defaultOrders } from "./defaultData/defaultOrders.js";
-
-
-// MongoDB Connection
+//MongoDB Connection
 connectDB();
 
-// Express Setup
+//Express setup
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -49,36 +39,33 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json());
 
-// Serve images
+//serve images
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-// API Routes
+//API routes
 app.use("/api/products", productRoutes);
-app.use("/api/delivery-options", deliveryOptionRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api/reset", resetRoutes);
-//app.use("/api/payment-summary", paymentSummaryRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminOrderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);
 
-// Seed Database (Relational Style)
+//seed DB(relational style)
 const seedDatabase = async () => {
   const productCount = await Product.countDocuments();
   if (productCount > 0) return;
 
   console.log("Seeding database...");
 
-  // Insert Products
+  //insert products
   const createdProducts = await Product.insertMany(defaultProducts);
 
-  // Insert Delivery Options
+  //insert delivery options
   const createdDeliveryOptions = await DeliveryOption.insertMany(defaultDeliveryOptions);
 
-  // Create Cart Items with Product references
+  //creating cart items with product references
   const cartItems = defaultCart.map((item, index) => ({
     product: createdProducts[index % createdProducts.length]._id,
     quantity: item.quantity || 1
@@ -86,7 +73,7 @@ const seedDatabase = async () => {
 
   await CartItem.insertMany(cartItems);
 
-  // Create Orders with proper references
+  //creating orders with proper references
   const orders = defaultOrders.map((order, index) => ({
     items: [
       {
@@ -107,7 +94,7 @@ const seedDatabase = async () => {
 
 await seedDatabase();
 
-// Serve Frontend (Production Build)
+//serving frontend(production build)
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("*", (req, res) => {
@@ -119,13 +106,12 @@ app.get("*", (req, res) => {
   }
 });
 
-// Global Error Handler
+//global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong!" });
 });
 
-// Start Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

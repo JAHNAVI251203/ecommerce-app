@@ -9,7 +9,7 @@ export function HomePage({ cart, loadCart }) {
   const [products, setProducts] = useState([]);
   const location = useLocation();
 
-  // ✅ GET SEARCH FROM URL
+  //getting search from url
   const queryParams = new URLSearchParams(location.search);
   const search = queryParams.get("search") || "";
 
@@ -22,9 +22,8 @@ export function HomePage({ cart, loadCart }) {
         console.error("Failed to load products:", error);
       }
     };
-
     getHomeData();
-  }, [search]); // ✅ RE-RUN WHEN SEARCH CHANGES
+  }, [search]); //re-running when search query changes
 
   return (
     <>
@@ -33,10 +32,9 @@ export function HomePage({ cart, loadCart }) {
       <Header cart={cart} />
 
       <div className="home-page">
-        {/* ✅ OPTIONAL: EMPTY STATE */}
         {products.length === 0 ? (
-          <p style={{ textAlign: "center", marginTop: "20px" }}>
-            No products found
+          <p style={{ textAlign: "center", marginTop: "100px" }}>
+            No products found!!!
           </p>
         ) : (
           <ProductsGrid products={products} loadCart={loadCart} />

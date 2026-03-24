@@ -14,7 +14,6 @@ export function OrdersPage({ cart }) {
       const response = await API.get('/orders');
       setOrders(response.data);
     };
-
     getOrdersData();
   }, []);
 

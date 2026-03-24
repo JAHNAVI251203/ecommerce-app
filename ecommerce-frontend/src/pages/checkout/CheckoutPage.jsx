@@ -7,16 +7,11 @@ import "./checkout-header.css";
 import "./CheckoutPage.css";
 
 export function CheckoutPage({ loadCart }) {
-
   const [cart, setCart] = useState(null);
   const [deliverySelection, setDeliverySelection] = useState({});
 
   const navigate = useNavigate();
-
-
-  // -------------------------------
-  // Fetch cart
-  // -------------------------------
+  //fetch cart
   const refreshCart = async () => {
     try {
       const res = await API.get("/cart");
@@ -26,27 +21,19 @@ export function CheckoutPage({ loadCart }) {
     }
   };
 
-
-  // Fetch cart when page loads
+  //fetch cart when page loads
   useEffect(() => {
-
     const token = localStorage.getItem("token");
 
     if (!token) {
       navigate("/login");
       return;
     }
-
     refreshCart();
-
   }, [navigate]);
-
-
-  // -------------------------------
-  // Default delivery options
-  // -------------------------------
+  
+  //default delivery options
   useEffect(() => {
-
     if (!cart || !cart.items) return;
 
     const defaults = {};
@@ -56,7 +43,6 @@ export function CheckoutPage({ loadCart }) {
     });
 
     setDeliverySelection(defaults);
-
   }, [cart]);
 
 
@@ -64,17 +50,12 @@ export function CheckoutPage({ loadCart }) {
     return <div>Loading checkout...</div>;
   }
 
-
-  // ------------------------------------------------
-  // Checkout Calculations
-  // ------------------------------------------------
-
+  //checkout calc
   let itemsPrice = 0;
   let shippingPrice = 0;
   let totalItems = 0;
 
   cart.items.forEach((item) => {
-
     const price = item.product?.price || 0;
     const qty = item.quantity || 0;
 
@@ -85,7 +66,6 @@ export function CheckoutPage({ loadCart }) {
 
     if (selectedDelivery === "standard") shippingPrice += 5;
     if (selectedDelivery === "express") shippingPrice += 10;
-
   });
 
   const totalPrice = itemsPrice + shippingPrice;
@@ -106,7 +86,6 @@ export function CheckoutPage({ loadCart }) {
       postalCode: "560001",
       country: "India"
     }
-
   };
 
 

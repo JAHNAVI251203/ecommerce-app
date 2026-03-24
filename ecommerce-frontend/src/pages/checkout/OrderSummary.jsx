@@ -24,7 +24,6 @@ export function OrderSummary({
 
   const updateCartItem = async (productId, quantity) => {
     try {
-
       if (quantity < 1) return;
 
       await API.post("/cart", {

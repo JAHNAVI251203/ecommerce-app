@@ -1,18 +1,13 @@
 import Order from "../models/Order.js";
 import User from "../models/User.js";
 
-
-// PHASE 5 — ADMIN DASHBOARD
+//admin dashboard
 export const getDashboardStats = async (req, res) => {
   try {
-
-    // total users
     const users = await User.countDocuments();
 
-    // total orders
     const orders = await Order.countDocuments();
 
-    // total revenue (only paid orders)
     const revenueData = await Order.aggregate([
       {
         $match: { paymentStatus: "paid" }
@@ -40,12 +35,9 @@ export const getDashboardStats = async (req, res) => {
   }
 };
 
-
-
-// PHASE 6 — MONTHLY SALES ANALYTICS
+//monthly sales 
 export const getMonthlySales = async (req, res) => {
   try {
-
     const sales = await Order.aggregate([
       {
         $match: { paymentStatus: "paid" }

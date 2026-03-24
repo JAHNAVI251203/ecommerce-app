@@ -4,24 +4,17 @@ import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
 
 function RegisterPage() {
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-
+  const handleRegister = async (e) => {e.preventDefault();
     try {
-
       await API.post(
         "/auth/register",
         { name, email, password }
       );
-
-      // redirect user to login after successful registration
       navigate("/login");
 
     } catch (err) {

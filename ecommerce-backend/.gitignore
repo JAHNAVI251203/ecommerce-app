@@ -1,6 +1,8 @@
 node_modules
-database.sqlite
-*.zip
 dist
-.DS_Store
 .env
+*.zip
+.DS_Store
+coverage
+logs
+*.log
