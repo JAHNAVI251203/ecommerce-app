@@ -75,13 +75,11 @@ export const verifyPayment = async (req, res) => {
       });
     }
 
-    const cart = await Cart.findOne({ user: req.user._id })//fetch cart
-      .populate("items.product");
+    const cart = await Cart.findOne({ user: req.user._id }).populate("items.product");//fetch cart
 
     const isCartFlow = cart && cart.items.length > 0;
 
-    console.log("BODY:", req.body);
-    console.log("USER:", req.user);
+    let orderItems = [];
 
     if (isCartFlow) {//stock check
       for (const item of cart.items) {
@@ -101,7 +99,7 @@ export const verifyPayment = async (req, res) => {
       }));
     } else {
       orderItems = (req.body.orderItems || []).map(item => ({
-        product: new mongoose.Types.ObjectId(item.product), // ✅ FIX
+        product: new mongoose.Types.ObjectId(item.product),
         quantity: item.quantity,
         price: item.price
       }));

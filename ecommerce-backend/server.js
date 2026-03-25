@@ -95,15 +95,12 @@ const seedDatabase = async () => {
 await seedDatabase();
 
 //serving frontend(production build)
-app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(path.join(__dirname, "../ecommerce-frontend/dist")));
 
 app.get("*", (req, res) => {
-  const indexPath = path.join(__dirname, "dist", "index.html");
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.status(404).send("index.html not found");
-  }
+  res.sendFile(
+    path.join(__dirname, "../ecommerce-frontend/dist/index.html")
+  );
 });
 
 //global error handler
