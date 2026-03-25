@@ -45,6 +45,10 @@ const orderSchema = new mongoose.Schema(
       enum: ["placed", "confirmed", "packed", "shipped", "out_for_delivery", "delivered"],
       default: "placed"
     },
+    itemsPrice: {
+      type: Number,
+      required: true   
+    },
     shippingPrice: {
       type: Number,
       required: true

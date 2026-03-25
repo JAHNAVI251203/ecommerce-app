@@ -5,9 +5,7 @@ import { formatMoney } from "../../utils/money";
 export function PaymentSummary({ paymentSummary, loadCart }) {
   const navigate = useNavigate();
 
-  if (!paymentSummary) {
-    return null;
-  }
+  if (!paymentSummary) return null;
 
   const {
     totalItems,
@@ -19,12 +17,11 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
   } = paymentSummary;
 
   const handlePlaceOrder = async () => {
-
     try {
+      // Use only itemsPrice and shippingPrice — backend no longer gates on cart here
       const { data } = await API.post("/payments/create-order", {
-        shippingPrice: paymentSummary.shippingPrice,
-        itemsPrice: paymentSummary.itemsPrice,
-        orderItems: paymentSummary.orderItems
+        itemsPrice: Number(itemsPrice),
+        shippingPrice: Number(shippingPrice)
       });
 
       const options = {
@@ -32,56 +29,70 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
         amount: data.amount,
         currency: data.currency,
         order_id: data.orderId,
-        name: "Your Store",
+        name: "ClickCart",
         description: "Order Payment",
+
         handler: async function (response) {
 
+          console.log("RAZORPAY RESPONSE", {
+            order_id: response.razorpay_order_id,
+            payment_id: response.razorpay_payment_id,
+            signature: response.razorpay_signature
+          });
+          
+          console.log("VERIFY PAYLOAD", {
+            orderItems,
+            shippingAddress,
+            itemsPrice,
+            shippingPrice
+          });
+
           try {
-            console.log("VERIFY PAYLOAD:", {
-              orderItems: paymentSummary.orderItems,
-              shippingAddress: paymentSummary.shippingAddress
-            });
-
-            console.log("SENDING TO BACKEND:", {
-              shippingPrice,
-              itemsPrice,
-              orderItems,
-              shippingAddress
-            });
-
             const verifyRes = await API.post("/payments/verify", {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
-              shippingPrice,
               orderItems,
-              shippingAddress: { ...shippingAddress },
-              itemsPrice
+              shippingAddress,
+              itemsPrice: Number(itemsPrice),
+              shippingPrice: Number(shippingPrice)
             });
 
-            const order = verifyRes.data.order;//backend already created order
+            const order = verifyRes.data.order;
 
             await loadCart();
 
             navigate(`/tracking/${order._id}`);
+
           } catch (error) {
-
             console.error("Payment verification failed", error);
-            alert("Payment verification failed");
-
+            alert("Payment verification failed. Please contact support.");
           }
         },
+
+        prefill: {
+          name: shippingAddress?.fullName || "",
+          email: "",
+          contact: shippingAddress?.phone || ""
+        },
+
         theme: {
-          color: "#000000"
+          color: "#3bb77e"
         }
       };
 
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
+      const rzp = new window.Razorpay(options);
+
+      rzp.on("payment.failed", function (response) {
+        console.error("Payment failed", response.error);
+        alert(`Payment failed: ${response.error.description}`);
+      });
+
+      rzp.open();
 
     } catch (error) {
       console.error("Payment initiation failed:", error);
-      alert("Unable to start payment");
+      alert("Unable to start payment. Please try again.");
     }
   };
 

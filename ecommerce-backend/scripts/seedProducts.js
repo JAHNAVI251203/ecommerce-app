@@ -11,7 +11,7 @@ async function seedProducts() {
 
     console.log("Connected to MongoDB");
 
-    await Product.deleteMany({}); // clear collection safely
+    await Product.deleteMany({}); 
 
     await Product.insertMany(defaultProducts);
 
