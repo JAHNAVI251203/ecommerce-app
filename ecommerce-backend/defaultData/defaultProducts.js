@@ -7,6 +7,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 87
     },
+    "category": "clothing",
     "price": 1090,
     "keywords": ["socks", "sports", "apparel"]
   },
@@ -18,6 +19,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 127
     },
+    "category": "sports",
     "price": 2095,
     "keywords": ["sports", "basketballs"]
   },
@@ -29,6 +31,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 56
     },
+    "category": "clothing",
     "price": 799,
     "keywords": ["tshirts", "apparel", "mens"]
   },
@@ -40,6 +43,7 @@ export const defaultProducts = [
       "rate": 5,
       "count": 2197
     },
+    "category": "kitchen",
     "price": 1899,
     "keywords": ["toaster", "kitchen", "appliances"]
   },
@@ -51,6 +55,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 37
     },
+    "category": "kitchen",
     "price": 2067,
     "keywords": ["plates", "kitchen", "dining"]
   },
@@ -62,6 +67,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 175
     },
+    "category": "kitchen",
     "price": 3499,
     "keywords": ["kitchen", "cookware"]
   },
@@ -73,6 +79,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 317
     },
+    "category": "clothing",
     "price": 2400,
     "keywords": ["sweaters", "apparel"]
   },
@@ -84,6 +91,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 144
     },
+    "category": "bathroom",
     "price": 3599,
     "keywords": ["bathroom", "washroom", "restroom", "towels", "bath towels"]
   },
@@ -95,6 +103,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 99
     },
+    "category": "bathroom",
     "price": 2374,
     "keywords": ["kleenex", "tissues", "kitchen", "napkins"]
   },
@@ -106,6 +115,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 235
     },
+    "category": "clothing",
     "price": 2970,
     "keywords": ["robe", "swimsuit", "swimming", "bathing", "apparel"]
   },
@@ -117,6 +127,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 2286
     },
+    "category": "clothing",
     "price": 5300,
     "keywords": ["womens", "shoes", "heels", "sandals"]
   },
@@ -128,6 +139,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 30
     },
+    "category": "accessories",
     "price": 3560,
     "keywords": ["accessories", "shades"]
   },
@@ -139,6 +151,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 232
     },
+    "category": "home",
     "price": 4599,
     "keywords": ["bedroom", "curtains", "home"]
   },
@@ -150,6 +163,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 160
     },
+    "category": "clothing",
     "price": 1699,
     "keywords": ["shorts", "apparel", "womens"]
   },
@@ -161,6 +175,7 @@ export const defaultProducts = [
       "rate": 5,
       "count": 846
     },
+    "category": "kitchen",
     "price": 5074,
     "keywords": ["water kettle", "appliances", "kitchen"]
   },
@@ -172,6 +187,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 89
     },
+    "category": "clothing",
     "price": 5390,
     "keywords": ["shoes", "running shoes", "footwear"]
   },
@@ -183,6 +199,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 215
     },
+    "category": "clothing",
     "price": 2200,
     "keywords": ["hats", "straw hats", "summer", "apparel"]
   },
@@ -194,6 +211,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 229
     },
+    "category": "clothing",
     "price": 4590,
     "keywords": ["shoes", "running shoes", "footwear", "mens"]
   },
@@ -205,6 +223,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 2465
     },
+    "category": "clothing",
     "price": 3374,
     "keywords": ["sweaters", "apparel"]
   },
@@ -216,6 +235,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 119
     },
+    "category": "bathroom",
     "price": 1850,
     "keywords": ["bathmat", "bathroom", "home"]
   },
@@ -227,6 +247,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 326
     },
+    "category": "clothing",
     "price": 2640,
     "keywords": ["shoes", "flats", "womens", "footwear"]
   },
@@ -238,6 +259,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 2556
     },
+    "category": "clothing",
     "price": 1599,
     "keywords": ["tshirts", "shirts", "apparel", "mens"]
   },
@@ -249,6 +271,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 305
     },
+    "category": "home",
     "price": 2899,
     "keywords": ["bathroom", "cleaning"]
   },
@@ -260,6 +283,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 52
     },
+    "category": "accessories",
     "price": 6799,
     "keywords": ["jewelry", "accessories", "womens"]
   },
@@ -271,6 +295,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 456
     },
+    "category": "home", 
     "price": 4399,
     "keywords": ["bedroom", "bed sheets", "sheets", "covers", "home"]
   },
@@ -282,6 +307,7 @@ export const defaultProducts = [
       "rate": 5,
       "count": 83
     },
+    "category": "clothing",
     "price": 1950,
     "keywords": ["hats", "winter hats", "beanies", "apparel", "womens"]
   },
@@ -293,6 +319,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 9017
     },
+    "category": "clothing",
     "price": 2290,
     "keywords": ["pants", "apparel", "mens"]
   },
@@ -304,6 +331,7 @@ export const defaultProducts = [
       "rate": 3.5,
       "count": 42
     },
+    "category": "accessories",
     "price": 3690,
     "keywords": ["sunglasses", "glasses", "accessories", "shades"]
   },
@@ -315,6 +343,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 562
     },
+    "category": "clothing",
     "price": 2499,
     "keywords": ["footwear", "men", "sneakers"]
   },
@@ -326,6 +355,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 511
     },
+    "category": "kitchen",
     "price": 6797,
     "keywords": ["cooking set", "kitchen"]
   },
@@ -337,6 +367,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 130
     },
+    "category": "bathroom",
     "price": 2549,
     "keywords": ["bathroom", "washroom", "mirrors", "home"]
   },
@@ -348,6 +379,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 248
     },
+    "category": "clothing",
     "price": 3400,
     "keywords": ["pants", "apparel", "womens"]
   },
@@ -359,6 +391,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 117
     },
+    "category": "accessories",
     "price": 3467,
     "keywords": ["accessories", "womens"]
   },
@@ -370,6 +403,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 126
     },
+    "category": "kitchen",
     "price": 2899,
     "keywords": ["food containers", "kitchen"]
   },
@@ -381,6 +415,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 1211
     },
+    "category": "kitchen",
     "price": 8250,
     "keywords": ["espresso makers", "kitchen", "appliances"]
   },
@@ -392,6 +427,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 363
     },
+    "category": "home",
     "price": 3099,
     "keywords": ["bedroom", "home", "curtains"]
   },
@@ -403,6 +439,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 93
     },
+    "category": "bathroom",
     "price": 2990,
     "keywords": ["bathroom", "home", "towels"]
   },
@@ -414,6 +451,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 89
     },
+    "category": "clothing", 
     "price": 3390,
     "keywords": ["shoes", "running shoes", "footwear"]
   },
@@ -425,6 +463,7 @@ export const defaultProducts = [
       "rate": 4,
       "count": 3
     },
+    "category": "kitchen",
     "price": 10747,
     "keywords": ["food blenders", "kitchen", "appliances"]
   },
@@ -436,6 +475,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 3157
     },
+    "category": "clothing",
     "price": 3800,
     "keywords": ["sweaters", "hoodies", "apparel", "mens"]
   },
@@ -447,6 +487,7 @@ export const defaultProducts = [
       "rate": 5,
       "count": 679
     },
+    "category": "kitchen",
     "price": 3899,
     "keywords": ["bowls set", "kitchen"]
   },
@@ -458,6 +499,7 @@ export const defaultProducts = [
       "rate": 4.5,
       "count": 1045
     },
+    "category": "kitchen",
     "price": 1899,
     "keywords": ["kitchen", "kitchen towels", "tissues"]
   }
