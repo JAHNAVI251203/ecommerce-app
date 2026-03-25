@@ -28,7 +28,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //middleware
-app.use(cors({origin: "*"}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://ecommerce-app-pearl-mu.vercel.app"
+    ],
+    credentials: true
+  })
+);
 app.use(express.json());
 
 //serve images
