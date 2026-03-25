@@ -31,7 +31,7 @@ export function CheckoutPage({ loadCart }) {
     }
     refreshCart();
   }, [navigate]);
-  
+
   //default delivery options
   useEffect(() => {
     if (!cart || !cart.items) return;
@@ -56,6 +56,7 @@ export function CheckoutPage({ loadCart }) {
   let totalItems = 0;
 
   cart.items.forEach((item) => {
+    if (!item.product) return;
     const price = item.product?.price || 0;
     const qty = item.quantity || 0;
 
@@ -75,11 +76,13 @@ export function CheckoutPage({ loadCart }) {
     itemsPrice,
     shippingPrice,
     totalPrice,
-    orderItems: cart.items.map(item => ({
-      product: item.product._id,
-      quantity: item.quantity,
-      price: item.product.price
-    })),
+    orderItems: cart.items
+      .filter(item => item.product)
+      .map(item => ({
+        product: item.product._id,
+        quantity: item.quantity,
+        price: item.product.price
+      })),
     shippingAddress: {
       address: "Test Address",
       city: "Bangalore",

@@ -18,7 +18,6 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
 
   const handlePlaceOrder = async () => {
     try {
-      // Use only itemsPrice and shippingPrice — backend no longer gates on cart here
       const { data } = await API.post("/payments/create-order", {
         itemsPrice: Number(itemsPrice),
         shippingPrice: Number(shippingPrice)
@@ -33,20 +32,6 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
         description: "Order Payment",
 
         handler: async function (response) {
-
-          console.log("RAZORPAY RESPONSE", {
-            order_id: response.razorpay_order_id,
-            payment_id: response.razorpay_payment_id,
-            signature: response.razorpay_signature
-          });
-          
-          console.log("VERIFY PAYLOAD", {
-            orderItems,
-            shippingAddress,
-            itemsPrice,
-            shippingPrice
-          });
-
           try {
             const verifyRes = await API.post("/payments/verify", {
               razorpay_order_id: response.razorpay_order_id,
@@ -89,7 +74,6 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
       });
 
       rzp.open();
-
     } catch (error) {
       console.error("Payment initiation failed:", error);
       alert("Unable to start payment. Please try again.");
