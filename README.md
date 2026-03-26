@@ -38,12 +38,12 @@ Vercel
 
 ## Architecture
 
-React (Vite)
-↓
-Express API
-↓
-MongoDB Atlas
-↓
+React (Vite)<br>
+↓<br>
+Express API<br>
+↓<br>
+MongoDB Atlas<br>
+↓<br>
 Razorpay
 
 ---
@@ -52,7 +52,7 @@ Razorpay
 
 Razorpay is running in **test mode**.
 
-UPI: `success@razorpay`
+UPI: `success@razorpay`<br>
 Card: `4111 1111 1111 1111`
 
 ---
@@ -65,7 +65,3 @@ cd project
 npm install
 npm run dev
 ```
-
----
-
-Built by **Jahnavi**
