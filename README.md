@@ -8,19 +8,19 @@ A full-stack MERN e-commerce application built to understand how real online sto
 
 ## Tech Stack
 
-Frontend
+Frontend:
 React, Vite, React Router
 
-Backend
+Backend:
 Node.js, Express
 
-Database
+Database:
 MongoDB Atlas
 
-Payments
+Payments:
 Razorpay (Test Mode)
 
-Deployment
+Deployment:
 Vercel
 
 ---
