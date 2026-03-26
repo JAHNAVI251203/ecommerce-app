@@ -22,7 +22,7 @@ function LoginPage() {
       navigate("/");
 
     } catch (err) {
-      alert("Invalid credentials");
+      alert("Invalid credentials. Please try again/register if you don't have an account.");
     }
   };
 
